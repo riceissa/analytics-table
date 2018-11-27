@@ -61,12 +61,8 @@ def get_report(analytics, start_date, end_date):
     ).execute()
 
 
-def print_response(response):
-    """Parses and prints the Analytics Reporting API V4 response.
-
-    Args:
-      response: An Analytics Reporting API V4 response.
-    """
+def get_pageviews(response):
+    result = []
     for report in response.get('reports', []):
         columnHeader = report.get('columnHeader', {})
         dimensionHeaders = columnHeader.get('dimensions', [])
@@ -80,17 +76,16 @@ def print_response(response):
                 print(header + ': ' + dimension)
 
             for i, values in enumerate(dateRangeValues):
-                print('Date range: ' + str(i))
+                # print('Date range: ' + str(i))
                 for metricHeader, value in zip(metricHeaders, values.get('values')):
-                    print(metricHeader.get('name') + ': ' + value)
-                    print("=====")
+                    result.append(value)
+                    # print(metricHeader.get('name') + ': ' + value)
+    return result
 
 
-def main():
-    analytics = initialize_analyticsreporting()
+def get_pageviews_for_project(analytics, project_name, start_year, start_month):
+    result = {}
 
-    start_year = 2017
-    start_month = 10
     date_ranges = []
     for year in range(start_year, 2018+1):
         if year == start_year:
@@ -105,11 +100,18 @@ def main():
 
     for year_month_name, start_date, end_date in date_ranges:
         response = get_report(analytics, start_date, end_date)
-        # print(type((response)))
-        # pp = pprint.PrettyPrinter(indent=4)
-        # pp.pprint(response)
-        print(year_month_name)
-        print_response(response)
+        pageviews = get_pageviews(response)
+        assert len(pageviews) <= 1, (pageviews, year, month)
+        if len(pageviews) == 1:
+            result[year_month_name] = int(pageviews[0])
+
+    return result
+
+
+def main():
+    analytics = initialize_analyticsreporting()
+
+    print(get_pageviews_for_project(analytics, "AI Watch", 2017, 10))
 
 if __name__ == '__main__':
     main()
