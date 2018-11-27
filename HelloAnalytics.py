@@ -5,8 +5,8 @@
 """Hello Analytics Reporting API V4."""
 
 import datetime
+import csv
 import sys
-import pprint
 
 from apiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
@@ -14,7 +14,17 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 SCOPES = ['https://www.googleapis.com/auth/analytics.readonly']
 KEY_FILE_LOCATION = sys.argv[1]
-VIEW_ID = sys.argv[2]
+
+
+def main():
+    analytics = initialize_analyticsreporting()
+
+    with open(sys.argv[2], newline="") as f:
+        reader = csv.DictReader(f, delimiter="\t")
+        for row in reader:
+            print(row['project_title'])
+            print(get_pageviews_for_project(analytics, row['view_id'], 2017, 10))
+
 
 
 def initialize_analyticsreporting():
@@ -39,7 +49,7 @@ def last_day_of_month(year, month):
         return datetime.date(year, month + 1, 1) - datetime.timedelta(days=1)
 
 
-def get_report(analytics, start_date, end_date):
+def get_report(analytics, view_id, start_date, end_date):
     """Queries the Analytics Reporting API V4.
 
     Args:
@@ -52,7 +62,7 @@ def get_report(analytics, start_date, end_date):
         body={
           'reportRequests': [
           {
-            'viewId': VIEW_ID,
+            'viewId': view_id,
             'dateRanges': [{'startDate': start_date, 'endDate': end_date}],
             'metrics': [{'expression': 'ga:pageviews'}],
             # 'dimensions': [{'name': 'ga:pagePath'}]
@@ -83,7 +93,7 @@ def get_pageviews(response):
     return result
 
 
-def get_pageviews_for_project(analytics, project_name, start_year, start_month):
+def get_pageviews_for_project(analytics, view_id, start_year, start_month):
     result = {}
 
     date_ranges = []
@@ -99,7 +109,7 @@ def get_pageviews_for_project(analytics, project_name, start_year, start_month):
             date_ranges.append((year_month_name, first_day, last_day))
 
     for year_month_name, start_date, end_date in date_ranges:
-        response = get_report(analytics, start_date, end_date)
+        response = get_report(analytics, view_id, start_date, end_date)
         pageviews = get_pageviews(response)
         assert len(pageviews) <= 1, (pageviews, year, month)
         if len(pageviews) == 1:
@@ -107,11 +117,6 @@ def get_pageviews_for_project(analytics, project_name, start_year, start_month):
 
     return result
 
-
-def main():
-    analytics = initialize_analyticsreporting()
-
-    print(get_pageviews_for_project(analytics, "AI Watch", 2017, 10))
 
 if __name__ == '__main__':
     main()
