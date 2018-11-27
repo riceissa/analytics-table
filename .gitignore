@@ -1,3 +1,4 @@
 key.json
 projects.tsv
 access-portal/
+*.pickle
