@@ -35,6 +35,9 @@ def main():
                 # print(row['project_title'])
                 data.append((row['project_title'],
                              get_pageviews_for_project(analytics, row['view_id'], 2017, 10)))
+        with open("analytics_data.pickle", "wb") as f:
+            pickle.dump(data, f, pickle.HIGHEST_PROTOCOL)
+
 
     print_table(data)
 
@@ -95,7 +98,8 @@ def get_report(analytics, view_id, start_date, end_date):
     Returns:
       The Analytics Reporting API V4 response.
     """
-    time.sleep(2)
+    # time.sleep(2)
+    print("Doing %s %s-%s" % (view_id, start_date, end_date), file=sys.stderr)
 
     return analytics.reports().batchGet(
         body={
