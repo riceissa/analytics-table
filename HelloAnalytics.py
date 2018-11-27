@@ -19,11 +19,39 @@ KEY_FILE_LOCATION = sys.argv[1]
 def main():
     analytics = initialize_analyticsreporting()
 
+    data = []
+
     with open(sys.argv[2], newline="") as f:
         reader = csv.DictReader(f, delimiter="\t")
         for row in reader:
             print(row['project_title'])
-            print(get_pageviews_for_project(analytics, row['view_id'], 2017, 10))
+            data.append((row['project_title'],
+                        get_pageviews_for_project(analytics, row['view_id'], 2017, 10)))
+    print_table(data)
+
+
+def print_table(data):
+    all_months = sorted(set.union(*[set(pageviews_dict.keys()) for _, pageviews_dict in data]))
+
+    print("<table>")
+    print("  <tr>")
+    print("  <th>Project title</th>")
+    for month in all_months:
+        print("  <th>")
+        print(month)
+        print("  </th>")
+    print("  </tr>")
+    for project_title, pageviews_dict in data:
+        print("<tr>")
+        print('''<td>%s</td>''' % project_title)
+        for month in all_months:
+            if month in pageviews_dict:
+                print('''<td>%s</td>''' % pageviews_dict[month])
+            else:
+                print("<td>n.a.</td>")
+        print("</tr>")
+
+    print("</table>")
 
 
 
