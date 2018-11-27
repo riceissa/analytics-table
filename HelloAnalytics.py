@@ -4,11 +4,15 @@
 # https://developers.google.com/analytics/devguides/reporting/core/v4/quickstart/service-py
 """Hello Analytics Reporting API V4."""
 
+import pdb
+import io
+import base64
 import datetime
 import csv
 import sys
 import pickle
 import time
+import matplotlib.pyplot as plt
 
 from apiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
@@ -41,6 +45,23 @@ def main():
 
 
     print_table(data)
+    # print(plot_data(data))
+
+
+def plot_data(data):
+    for project_title, _, pageviews_dict in data:
+        xs = []
+        ys = []
+        for month_year in sorted(pageviews_dict, key=lambda x: datetime.datetime.strptime(x, "%B %Y")):
+            xs.append(datetime.datetime.strptime(month_year, "%B %Y"))
+            ys.append(pageviews_dict[month_year])
+        plt.plot(xs, ys, label=project_title)
+    plt.legend(loc='upper left')
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    return base64.b64encode(buf.read()).decode('utf-8')
+
 
 
 def print_table(data):
@@ -78,6 +99,9 @@ def print_table(data):
       ''')
 
     print("<table>")
+    print('''
+        <img src="data:image/png;base64, %s" />
+    ''' % plot_data(data))
     print("<thead>")
     print("  <tr>")
     print("  <th>Project title</th>")
