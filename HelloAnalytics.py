@@ -7,6 +7,8 @@
 import datetime
 import csv
 import sys
+import pickle
+import time
 
 from apiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
@@ -17,21 +19,29 @@ KEY_FILE_LOCATION = sys.argv[1]
 
 
 def main():
-    analytics = initialize_analyticsreporting()
+    try:
+        print("Trying to load pickle...", file=sys.stderr)
+        with open("analytics_data.pickle", "rb") as f:
+            data = pickle.load(f)
+    except FileNotFoundError:
+        print("Pickle not found; querying again...", file=sys.stderr)
+        analytics = initialize_analyticsreporting()
 
-    data = []
+        data = []
 
-    with open(sys.argv[2], newline="") as f:
-        reader = csv.DictReader(f, delimiter="\t")
-        for row in reader:
-            print(row['project_title'])
-            data.append((row['project_title'],
-                        get_pageviews_for_project(analytics, row['view_id'], 2017, 10)))
+        with open(sys.argv[2], newline="") as f:
+            reader = csv.DictReader(f, delimiter="\t")
+            for row in reader:
+                # print(row['project_title'])
+                data.append((row['project_title'],
+                             get_pageviews_for_project(analytics, row['view_id'], 2017, 10)))
+
     print_table(data)
 
 
 def print_table(data):
-    all_months = sorted(set.union(*[set(pageviews_dict.keys()) for _, pageviews_dict in data]))
+    all_months = sorted(set.union(*[set(pageviews_dict.keys()) for _, pageviews_dict in data]),
+                        key=lambda x: datetime.datetime.strptime(x, "%B %Y"))
 
     print("<table>")
     print("  <tr>")
@@ -85,6 +95,7 @@ def get_report(analytics, view_id, start_date, end_date):
     Returns:
       The Analytics Reporting API V4 response.
     """
+    time.sleep(2)
 
     return analytics.reports().batchGet(
         body={
