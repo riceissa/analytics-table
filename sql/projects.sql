@@ -6,8 +6,7 @@ create table projects(
     # The Google Analytics ViewID for this site.
     view_id varchar(50) not null,
 
-    # The first day of the month when Google Analytics was added for this site,
-    # e.g. "2017-10-01" for "October 2017".
-    start_month date
+    # The date when Google Analytics was added for this site.
+    start_date date
 
 ) ENGINE=InnoDB AUTO_INCREMENT=15239276 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
