@@ -2,7 +2,6 @@
 
 # Modified from
 # https://developers.google.com/analytics/devguides/reporting/core/v4/quickstart/service-py
-"""Hello Analytics Reporting API V4."""
 
 import pdb
 import datetime
@@ -27,11 +26,11 @@ def main():
 
     cursor.execute("""select project_title, view_id, start_date from projects""")
     projects = cursor.fetchall()
-    for project in projects[:1]:
+    for project in projects:
         project_title, view_id, start_date = project
         # Get the date up to which we have recorded pageviews data for this project
         cursor.execute("""select * from pageviews where project_title = %s
-                          order by pageviews_date limit 1""", (project_title,))
+                          order by pageviews_date desc limit 1""", (project_title,))
         lst = cursor.fetchall()
         if lst:
             last_date = lst[0][0]
@@ -40,9 +39,13 @@ def main():
             # very beginning
             last_date = start_date
 
-        pg = pageviews_for_project(analytics, view_id, last_date)
-        print(get_pageviews(pg[1]))
-        # pdb.set_trace()
+        pageviews = pageviews_for_project(analytics, view_id, last_date)
+        records = [(project_title, date_string, views) for date_string, views in pageviews]
+
+        insert_query = """insert into pageviews(project_title, pageviews_date, pageviews)
+                          values (%s, %s, %s)"""
+        cursor.executemany(insert_query, records)
+        cnx.commit()
 
 
 def initialize_analyticsreporting():
