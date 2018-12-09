@@ -79,7 +79,8 @@ def get_report(analytics, view_id, start_date, end_date, page_token=None):
       The Analytics Reporting API V4 response.
     """
     # time.sleep(2)
-    print("Doing %s %s-%s" % (view_id, start_date, end_date), file=sys.stderr)
+    print("Doing %s %s-%s (page token: %s)" % (view_id, start_date, end_date, page_token),
+          file=sys.stderr)
 
     report_dict = {
         'viewId': view_id,
