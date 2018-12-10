@@ -128,3 +128,14 @@ The script checks the most recently stored date for each project, and only
 queries for more recent data, so the second run should be much quicker. (If a
 website got zero pageviews on the most recent days, it might try to query a
 small number of dates.)
+
+### Serve the website
+
+If you're trying to run the website locally, run **from the `access-portal/` directory:
+
+```bash
+php -S localhost:8000
+```
+
+If you're trying to serve the website over the web, edit your nginx/apache
+config; make sure the root directory is `access-portal/`.
