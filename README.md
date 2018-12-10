@@ -1,3 +1,8 @@
+TODO:
+
+- make sure i don't insert duplicate pageviews for each (project, month) combo
+- add instructions for generating email address to add to GA accounts
+- explain fetch_pageviews.py vs print_table.py
 
 ## How to give access to the script
 
