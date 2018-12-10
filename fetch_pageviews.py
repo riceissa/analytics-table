@@ -10,6 +10,8 @@ import sys
 import time
 import mysql.connector
 
+import login
+
 from apiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
 
@@ -21,7 +23,8 @@ KEY_FILE_LOCATION = sys.argv[1]
 def main():
     analytics = initialize_analyticsreporting()
 
-    cnx = mysql.connector.connect(user='issa', database='analyticstable')
+    cnx = mysql.connector.connect(user=login.USER, database=login.DATABASE,
+                                  password=login.PASSWORD)
     cursor = cnx.cursor()
 
     cursor.execute("""select project_title, view_id, start_date from projects""")
