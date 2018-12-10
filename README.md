@@ -54,22 +54,22 @@ create a single project and a single service account for that project.
    as `key.json` in this repo's directory.
    **If you already have a service account**, in the table that lists your
    service accounts, there is a column called "Actions". Click the hamburger
-   and select "Create key".
+   and select "Create key", and save as `key.json`.
 
 ### How to give access to the script
 
 For this step, you will need the email address associated with your service
 account.
 
-from the analytics home page, you can go to admin → then under the View column
+From the analytics home page, you can go to admin → then under the View column
 User Management → and then the (+) in the upper right corner → "Add new users"
-→ and use email address above, and make sure "Read & Analyze" is checked, then
-click Add
+→ and use email address for your service account, and make sure "Read &
+Analyze" is checked, then click Add.
 
 ### How to find the view ID
 
-admin → under the View column "View Settings" → under "Basic Settings" there
-should be a "View ID" heading
+Admin → under the View column "View Settings" → under "Basic Settings" there
+should be a "View ID" heading.
 
 ### Change Google Analytics quota
 
