@@ -36,6 +36,7 @@ There are several parts to this:
    email address access to the analytics data.
 3. For each website tracked via Google Analytics, you must add the project
    metadata to `sql/projects.sql`.
+4. Optional: change the Google Analytics quota.
 
 Each step is covered below.
 
@@ -73,3 +74,12 @@ click Add
 
 admin → under the View column "View Settings" → under "Basic Settings" there
 should be a "View ID" heading
+
+### Change Google Analytics quota
+
+1. Go to https://console.developers.google.com/iam-admin/serviceaccounts
+2. In left bar, click "Quotas"
+3. Under services dropdown, restrict to "Google Analytics Reporting API".
+4. The one that might cause problems is "Google Analytics Reporting API - Requests
+   per 100 seconds", so click that, and in the next screen you can click the
+   pencil to change it up to 50,000.
