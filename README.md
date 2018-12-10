@@ -82,4 +82,24 @@ should be a "View ID" heading.
 
 ## Setting up the portal
 
-coming soon
+### Set up the database
+
+```bash
+# Create database
+mysql -e "create database analyticstable"
+
+# Create tables
+mysql analyticstable < sql/projects.sql
+mysql analyticstable < sql/pageviews.sql
+```
+
+### Create login file
+
+In this repo's directory, create a file called `login.py` with the database login info.
+For example:
+
+```python
+USER = "issa"
+DATABASE = "analyticstable"
+PASSWORD = ""
+```
