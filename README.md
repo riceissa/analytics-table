@@ -1,9 +1,5 @@
 # Analytics table for Vipul Naik's projects
 
-TODO:
-
-- add instructions for generating email address to add to GA accounts
-
 ## Project layout
 
 - `fetch_pageviews.py`: this script queries Google Analytics using its API, and
