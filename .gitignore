@@ -1,5 +1,7 @@
 key.json
 projects.tsv
-access-portal/
+access-portal/jquery.min.js
+access-portal/jquery.tablesorter.js
+access-portal/tablesorter.css
 *.pickle
 login.py

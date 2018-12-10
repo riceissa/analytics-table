@@ -129,6 +129,12 @@ queries for more recent data, so the second run should be much quicker. (If a
 website got zero pageviews on the most recent days, it might try to query a
 small number of dates.)
 
+### Fetch auxiliary files
+
+```bash
+make fetch_tablesorter
+```
+
 ### Serve the website
 
 If you're trying to run the website locally, run from the `access-portal/` directory:
