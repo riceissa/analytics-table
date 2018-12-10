@@ -79,3 +79,7 @@ should be a "View ID" heading.
 4. The one that might cause problems is "Google Analytics Reporting API - Requests
    per 100 seconds", so click that, and in the next screen you can click the
    pencil to change it up to 50,000.
+
+## Setting up the portal
+
+coming soon
