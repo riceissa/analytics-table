@@ -61,6 +61,9 @@ create a single project and a single service account for that project.
 
 ### How to give access to the script
 
+For this step, you will need the email address associated with your service
+account.
+
 from the analytics home page, you can go to admin → then under the View column
 User Management → and then the (+) in the upper right corner → "Add new users"
 → and use email address above, and make sure "Read & Analyze" is checked, then
