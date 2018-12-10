@@ -1,8 +1,20 @@
+# Analytics table for Vipul Naik's projects
+
 TODO:
 
-- make sure i don't insert duplicate pageviews for each (project, month) combo
 - add instructions for generating email address to add to GA accounts
-- explain fetch_pageviews.py vs print_table.py
+
+## Project layout
+
+- `fetch_pageviews.py`: this script queries Google Analytics using its API, and
+  stores the data in a local database. This script should be run in a cron job.
+- `print_table.py`: this script queries the local database and prints pageviews
+  data in an HTML table.
+- `sql/`: table schema and some data for the local database.
+- `access-portal/`: if this project is served over the web, this is where users
+  will access the site.
+
+## Database layout
 
 ## How to give access to the script
 
