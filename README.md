@@ -103,3 +103,28 @@ USER = "issa"
 DATABASE = "analyticstable"
 PASSWORD = ""
 ```
+
+### Install Google Analytics API library
+
+Follow steps at:
+https://developers.google.com/analytics/devguides/reporting/core/v4/quickstart/service-py#2_install_the_client_library
+
+### Run the data fetching script
+
+If everything is set up correctly, you should now be able to run the data
+fetching script:
+
+```bash
+./fetch_pageviews.py key.json
+```
+
+If it works, try running it again:
+
+```bash
+./fetch_pageviews.py key.json
+```
+
+The script checks the most recently stored date for each project, and only
+queries for more recent data, so the second run should be much quicker. (If a
+website got zero pageviews on the most recent days, it might try to query a
+small number of dates.)
