@@ -33,7 +33,7 @@ def main():
                           order by pageviews_date desc limit 1""", (project_title,))
         lst = cursor.fetchall()
         if lst:
-            last_date = lst[0][0]
+            last_date = lst[0][0] + datetime.timedelta(days=1)
         else:
             # This means we have no data for this project, so start from the
             # very beginning
@@ -135,11 +135,17 @@ def extracted_pageviews(response):
 
 
 def pageviews_for_project(analytics, view_id, start_date):
-    page_token = None
     result = []
+    today = datetime.date.today()
+    if start_date > today:
+        # This means we already have all the data up until today, so don't
+        # query
+        return result
+
+    page_token = None
     while True:
         response = get_report(analytics, view_id, start_date.strftime("%Y-%m-%d"),
-                              "2018-12-09", page_token)
+                              today.strftime("%Y-%m-%d"), page_token)
         result.extend(extracted_pageviews(response))
         if "nextPageToken" in response["reports"][0]:
             page_token = response["reports"][0]["nextPageToken"]
