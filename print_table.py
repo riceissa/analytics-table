@@ -4,6 +4,7 @@
 
 import mysql.connector
 import matplotlib.pyplot as plt
+import datetime
 import base64
 import io
 import sys
@@ -32,13 +33,14 @@ def main():
     # pdb.set_trace()
     print_table(projects, pageviews_data)
 
-def plot_data(data):
-    for project_title, _, pageviews_dict in data:
+def plot_data(projects, pageviews_data):
+    for project_title, _ in projects:
         xs = []
         ys = []
-        for month_year in sorted(pageviews_dict, key=lambda x: datetime.datetime.strptime(x, "%B %Y")):
-            xs.append(datetime.datetime.strptime(month_year, "%B %Y"))
-            ys.append(pageviews_dict[month_year])
+        for title, views, year, month in pageviews_data:
+            if title == project_title:
+                xs.append(datetime.datetime(year, month, 1))
+                ys.append(views)
         plt.plot(xs, ys, label=project_title)
     plt.legend(loc='upper left')
     buf = io.BytesIO()
@@ -81,9 +83,9 @@ def print_table(projects, pageviews_data):
     ''')
 
     print("<table>")
-    # print('''
-    #     <img src="data:image/png;base64, %s" />
-    # ''' % plot_data(data))
+    print('''
+        <img src="data:image/png;base64, %s" />
+    ''' % plot_data(projects, pageviews_data))
     print("<thead>")
     print("  <tr>")
     print("  <th>Project title</th>")
