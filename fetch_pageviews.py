@@ -3,11 +3,8 @@
 # Modified from
 # https://developers.google.com/analytics/devguides/reporting/core/v4/quickstart/service-py
 
-import pdb
 import datetime
-import csv
 import sys
-import time
 import mysql.connector
 
 import login
@@ -81,7 +78,6 @@ def get_report(analytics, view_id, start_date, end_date, page_token=None):
     Returns:
       The Analytics Reporting API V4 response.
     """
-    # time.sleep(2)
     print("Doing ViewID=%s [%s, %s] (page token: %s)" % (
                 view_id, start_date, end_date, page_token), file=sys.stderr)
 
