@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-# import pdb
-
 import mysql.connector
 import matplotlib.pyplot as plt
 import datetime
@@ -10,6 +8,7 @@ import io
 import sys
 
 import login
+
 
 def main():
     cnx = mysql.connector.connect(user=login.USER, database=login.DATABASE,
