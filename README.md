@@ -131,7 +131,7 @@ small number of dates.)
 
 ### Serve the website
 
-If you're trying to run the website locally, run **from the `access-portal/` directory:
+If you're trying to run the website locally, run **from the `access-portal/`** directory:
 
 ```bash
 php -S localhost:8000
