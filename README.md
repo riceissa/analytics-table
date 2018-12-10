@@ -16,10 +16,57 @@ TODO:
 
 ## Database layout
 
-## How to give access to the script
+The database should be named `analyticstable`.
 
-from the analytics home page, you can go to admin -> then under the View column User Management -> and then the (+) in the upper right corner -> "Add new users" -> and use email address above, and make sure "Read & Analyze" is checked, then click Add
+The database has two tables:
 
-## How to find the view ID
+- `projects`: this stores some metadata about each project. The data for this
+  is stored directly in the SQL file.
+- `pageviews`: this stores the pageviews. The data for this is inserted by
+  `fetch_pageviews.py`.
 
-admin -> under the View column "View Settings" -> under "Basic Settings" there should be a "View ID" heading
+## Setting up Google Analytics
+
+There are several parts to this:
+
+1. You must set up a project on the Google developers console. From the
+   project, you will create a service account, which will have an **email
+   address** associated with it as well as a **credentials JSON file**.
+2. For each website tracked via Google Analytics, you must give your special
+   email address access to the analytics data.
+3. For each website tracked via Google Analytics, you must add the project
+   metadata to `sql/projects.sql`.
+
+Each step is covered below.
+
+### Set up a Google developers project and a service account
+
+A _project_ seems to be some sort of umbrella thing for the Google developers
+console, whereas a _service account_ is a thing that gets an email. You will
+create a single project and a single service account for that project.
+
+1. Go to https://console.developers.google.com
+2. Create a new project somehow (I can't go back to the screen displayed before
+   I had any projects, so I can't write up the exact steps).
+3. Go to https://console.developers.google.com/iam-admin/serviceaccounts
+4. Click "create service account". You can enter arbitrary stuff here; you don't
+   need to give the service account any permissions.
+5. Create a key for the service account. **If you're creating a new service
+   account**, there should be a section called "Create key (optional)". Click
+   "create key", and make sure JSON is selected. Now create the key and save it
+   as `key.json` in this repo's directory.
+   **If you already have a service account**, in the table that lists your
+   service accounts, there is a column called "Actions". Click the hamburger
+   and select "Create key".
+
+### How to give access to the script
+
+from the analytics home page, you can go to admin → then under the View column
+User Management → and then the (+) in the upper right corner → "Add new users"
+→ and use email address above, and make sure "Read & Analyze" is checked, then
+click Add
+
+### How to find the view ID
+
+admin → under the View column "View Settings" → under "Basic Settings" there
+should be a "View ID" heading
