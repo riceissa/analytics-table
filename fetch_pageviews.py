@@ -29,7 +29,7 @@ def main():
     for project in projects:
         project_title, view_id, start_date = project
         # Get the date up to which we have recorded pageviews data for this project
-        cursor.execute("""select * from pageviews where project_title = %s
+        cursor.execute("""select pageviews_date from pageviews where project_title = %s
                           order by pageviews_date desc limit 1""", (project_title,))
         lst = cursor.fetchall()
         if lst:
@@ -79,8 +79,8 @@ def get_report(analytics, view_id, start_date, end_date, page_token=None):
       The Analytics Reporting API V4 response.
     """
     # time.sleep(2)
-    print("Doing %s %s-%s (page token: %s)" % (view_id, start_date, end_date, page_token),
-          file=sys.stderr)
+    print("Doing ViewID=%s [%s, %s] (page token: %s)" % (
+                view_id, start_date, end_date, page_token), file=sys.stderr)
 
     report_dict = {
         'viewId': view_id,
