@@ -5,5 +5,7 @@ create table pageviews(
     # The date for which the pageviews are recorded.
     pageviews_date date not null,
 
-    pageviews int(8) not null
+    pageviews int(8) not null,
+
+    unique key `project_title_and_date` (`project_title`, `pageviews_date`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15239276 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
