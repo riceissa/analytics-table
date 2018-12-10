@@ -78,6 +78,7 @@ def print_table(projects, pageviews_data):
           padding: 5px 10px;
         }
       </style>
+      <title>Vipul’s Empire</title>
     </head>
     <body>
     ''')
@@ -90,9 +91,9 @@ def print_table(projects, pageviews_data):
     print("  <tr>")
     print("  <th>Project title</th>")
     print("  <th>Total</th>")
-    for month in all_months:
+    for year, month in all_months:
         print("  <th>")
-        print(month)
+        print(datetime.date(year, month, 1).strftime("%B %Y"))
         print("  </th>")
     print("  </tr>")
     print("</thead>")
@@ -102,10 +103,10 @@ def print_table(projects, pageviews_data):
                 if title == project_title}
         print("<tr>")
         print('''<td><a href="%s">%s</a></td>''' % (url, project_title))
-        print('''<td style="text-align: right;">%s</td>''' % sum(data.values()))
+        print('''<td style="text-align: right;">{:,}</td>'''.format(sum(data.values())))
         for month in all_months:
             if month in data:
-                print('''<td style="text-align: right;">%s</td>''' % data[month])
+                print('''<td style="text-align: right;">{:,}</td>'''.format(data[month]))
             else:
                 print('''<td style="text-align: right;">n.a.</td>''')
         print("</tr>")
@@ -115,7 +116,7 @@ def print_table(projects, pageviews_data):
     print('''
         <script>
         $(function(){
-            $("table").tablesorter();
+            $("table").tablesorter({sortInitialOrder: "desc"});
           });
     </script>
     </body>
