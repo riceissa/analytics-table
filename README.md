@@ -45,10 +45,12 @@ create a single project and a single service account for that project.
 1. Go to https://console.developers.google.com
 2. Create a new project somehow (I can't go back to the screen displayed before
    I had any projects, so I can't write up the exact steps).
-3. Go to https://console.developers.google.com/iam-admin/serviceaccounts
-4. Click "create service account". You can enter arbitrary stuff here; you don't
+3. Enable analytics API for your project:
+   https://www.dundas.com/support/learning/documentation/connect-to-data/how-to/connecting-to-google-analytics
+4. Go to https://console.developers.google.com/iam-admin/serviceaccounts
+5. Click "create service account". You can enter arbitrary stuff here; you don't
    need to give the service account any permissions.
-5. Create a key for the service account. **If you're creating a new service
+6. Create a key for the service account. **If you're creating a new service
    account**, there should be a section called "Create key (optional)". Click
    "create key", and make sure JSON is selected. Now create the key and save it
    as `key.json` in this repo's directory.
