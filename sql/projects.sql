@@ -41,4 +41,6 @@ insert into projects(project_title, url, view_id, start_date) values
     ,('Topospaces subwiki','https://topospaces.subwiki.org/','11272244','2008-09-11')
     ,('Vipul Naik','https://vipulnaik.com/','80266001','2013-12-18')
     ,('Wikipedia Views','https://wikipediaviews.org/','88649657','2014-07-16')
+    ,('Content Creation Wiki', 'https://contentcreation.issarice.com/', '156584158', '2017-07-01')
+    ,('Issa Rice', 'https://issarice.com/', '104557782', '2015-05-01')
 ;
