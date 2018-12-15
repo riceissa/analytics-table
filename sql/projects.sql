@@ -32,4 +32,13 @@ insert into projects(project_title, url, view_id, start_date) values
     ,('Diffgeom subwiki','https://diffgeom.subwiki.org/','11272486','2008-09-11')
     ,('Donations list website','https://donations.vipulnaik.com/','137613209','2017-01-09')
     ,('Groupprops subwiki','https://groupprops.subwiki.org/','8783374','2008-05-10')
+    ,('Cognito Mentoring Wiki','https://info.cognitomentoring.org/','83301583','2014-03-12')
+    ,('Learning subwiki','https://learning.subwiki.org/','80270607','2014-04-30')
+    ,('Market subwiki','https://market.subwiki.org/','14469598','2009-01-27')
+    ,('Mech subwiki','https://mech.subwiki.org/','14493100','2009-01-26')
+    ,('Number subwiki','https://number.subwiki.org/','16064309','2009-03-18')
+    ,('Open Borders: The Case','https://openborders.info/','57510771','2012-03-16')
+    ,('Topospaces subwiki','https://topospaces.subwiki.org/','11272244','2008-09-11')
+    ,('Vipul Naik','https://vipulnaik.com/','80266001','2013-12-18')
+    ,('Wikipedia Views','https://wikipediaviews.org/','88649657','2014-07-16')
 ;
