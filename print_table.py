@@ -5,6 +5,7 @@ import matplotlib
 # Force matplotlib to not use any Xwindows backend.
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from adjustText import adjust_text
 import datetime
 import base64
 import io
@@ -36,6 +37,7 @@ def main():
 
 
 def plot_data(projects, pageviews_data):
+    texts = []
     for project_title, _ in projects:
         xs = []
         ys = []
@@ -44,7 +46,11 @@ def plot_data(projects, pageviews_data):
                 xs.append(datetime.datetime(year, month, 1))
                 ys.append(views)
         plt.plot(xs, ys, label=project_title)
-    plt.legend(loc='upper right', bbox_to_anchor=(2, 1), ncol=2)
+        middle_index = len(xs) // 2
+        texts.append(plt.text(xs[middle_index], float(ys[middle_index]), project_title))
+    adjust_text(texts, arrowprops=dict(arrowstyle='->', color='red', lw=0.5),
+                only_move={'points':'y', 'text':'y'})
+    # plt.legend(loc='upper right', bbox_to_anchor=(2, 1), ncol=2)
     buf = io.BytesIO()
     plt.savefig(buf, format='png', bbox_inches="tight")
     buf.seek(0)
