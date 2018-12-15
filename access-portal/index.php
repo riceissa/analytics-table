@@ -9,7 +9,7 @@ if ($_REQUEST['start_date'] ?? '') {
 
 if ($_REQUEST['end_date'] ?? '') {
   $end_date = $_REQUEST['end_date'];
-  $end_date = preg_replace('/[^0-9-]/', '', $start_date);
+  $end_date = preg_replace('/[^0-9-]/', '', $end_date);
 } else {
   $end_date = "";
 }
