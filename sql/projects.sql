@@ -24,5 +24,11 @@ insert into projects(project_title, url, view_id, start_date) values
     ,('Cognito Mentoring','https://cognitomentoring.org/','80278113','2013-12-21')
     ,('Commalg subwiki','https://commalg.subwiki.org/','11272366','2008-09-11')
     ,('Companal subwiki','https://companal.subwiki.org/','11272518','2008-09-11')
-    ,('Contract work for Vipul Naik','https://contractwork.vipulnaik.com/','137051483','2017-1-02')
+    ,('Contract work for Vipul Naik','https://contractwork.vipulnaik.com/','137051483','2017-01-02')
+    ,('Offene Grenzen','https://de.openborders.info/','88934216','2014-07-23')
+    ,('Demography subwiki','https://demography.subwiki.org/','80270608','2014-01-26')
+    ,('Devec subwiki','https://devec.suwiki.org/','162188096','2017-10-14')
+    ,('Devec/Demography data portal','https://devec.vipulnaik.com/','185520433','2018-11-25')
+    ,('Diffgeom subwiki','https://diffgeom.subwiki.org/','11272486','2008-09-11')
+    ,('Donations list website','https://donations.vipulnaik.com/','137613209','2017-01-09')
 ;
