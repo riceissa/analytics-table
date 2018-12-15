@@ -53,10 +53,10 @@ create a single project and a single service account for that project.
 6. Create a key for the service account. **If you're creating a new service
    account**, there should be a section called "Create key (optional)". Click
    "create key", and make sure JSON is selected. Now create the key and save it
-   as `key.json` in this repo's directory.
+   as `key.json` (I think Google's documentation refers to this file as `client_secrets.json`) in this repo's directory.
    **If you already have a service account**, in the table that lists your
    service accounts, there is a column called "Actions". Click the hamburger
-   and select "Create key", and save as `key.json`.
+   and select "Create key", and save as `key.json` (I think Google's documentation refers to this file as `client_secrets.json`).
 
 ### How to give access to the script
 
