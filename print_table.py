@@ -5,7 +5,6 @@ import matplotlib
 # Force matplotlib to not use any Xwindows backend.
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from adjustText import adjust_text
 import datetime
 import base64
 import io
