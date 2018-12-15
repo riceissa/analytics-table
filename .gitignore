@@ -3,5 +3,4 @@ projects.tsv
 access-portal/jquery.min.js
 access-portal/jquery.tablesorter.js
 access-portal/tablesorter.css
-*.pickle
 login.py
