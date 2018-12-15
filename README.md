@@ -108,8 +108,13 @@ PASSWORD = ""
 
 ### Install Google Analytics API library
 
-Follow steps at:
-https://developers.google.com/analytics/devguides/reporting/core/v4/quickstart/service-py#2_install_the_client_library
+Run:
+
+```bash
+sudo pip install --upgrade google-api-python-client
+```
+
+([source](https://developers.google.com/analytics/devguides/reporting/core/v4/quickstart/service-py#2_install_the_client_library))
 
 ### Run the data fetching script
 
