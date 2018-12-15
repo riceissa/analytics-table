@@ -135,16 +135,20 @@ def extracted_pageviews(response):
 
 def pageviews_for_project(analytics, view_id, start_date):
     result = []
-    today = datetime.date.today()
-    if start_date > today:
-        # This means we already have all the data up until today, so don't
-        # query
+
+    # Google Analytics records pageviews for partial days, so make sure that we
+    # only get fully completed days by setting the upper limit to four days
+    # ago (to deal with potential timezone differences).
+    upper_limit_date = datetime.date.today() - datetime.timedelta(days=4)
+
+    if start_date > upper_limit_date:
+        # This means we already have all the most recent data, so don't query
         return result
 
     page_token = None
     while True:
         response = get_report(analytics, view_id, start_date.strftime("%Y-%m-%d"),
-                              today.strftime("%Y-%m-%d"), page_token)
+                              upper_limit_date.strftime("%Y-%m-%d"), page_token)
         result.extend(extracted_pageviews(response))
         if "nextPageToken" in response["reports"][0]:
             page_token = response["reports"][0]["nextPageToken"]
