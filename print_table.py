@@ -18,17 +18,41 @@ def main():
     cnx = mysql.connector.connect(user=login.USER, database=login.DATABASE,
                                   password=login.PASSWORD)
     cursor = cnx.cursor()
-    cursor.execute("""
-           select
-               project_title,
-               sum(pageviews),
-               year(pageviews_date),
-               month(pageviews_date)
-           from pageviews
-           group by
-               project_title,
-               year(pageviews_date),
-               month(pageviews_date)""")
+
+    if len(sys.argv) == 2+1:
+        start_date = sys.argv[1]
+        end_date = sys.argv[2]
+        if not start_date:
+            start_date = "2000-01-01"
+        if not end_date:
+            end_date = datetime.date.today() + datetime.timedelta(days=3)
+        # We are given both a start and end date
+        cursor.execute("""
+               select
+                   project_title,
+                   sum(pageviews),
+                   year(pageviews_date),
+                   month(pageviews_date)
+               from pageviews
+               where pageviews_date between %s and %s
+               group by
+                   project_title,
+                   year(pageviews_date),
+                   month(pageviews_date)""", (start_date, end_date))
+    else:
+        # No start/end dates given; use everything
+        assert len(sys.argv) == 1
+        cursor.execute("""
+               select
+                   project_title,
+                   sum(pageviews),
+                   year(pageviews_date),
+                   month(pageviews_date)
+               from pageviews
+               group by
+                   project_title,
+                   year(pageviews_date),
+                   month(pageviews_date)""")
     pageviews_data = cursor.fetchall()
 
     cursor.execute("""select project_title, url from projects""")
@@ -45,9 +69,10 @@ def plot_data(projects, pageviews_data):
             if title == project_title:
                 xs.append(datetime.datetime(year, month, 1))
                 ys.append(views)
-        plt.plot(xs, ys, label=project_title)
-        middle_index = len(xs) // 2
-        texts.append(plt.text(xs[middle_index], float(ys[middle_index]), project_title))
+        if xs:
+            plt.plot(xs, ys, label=project_title)
+            middle_index = len(xs) // 2
+            texts.append(plt.text(xs[middle_index], float(ys[middle_index]), project_title))
     adjust_text(texts, arrowprops=dict(arrowstyle='->', color='red', lw=0.5),
                 only_move={'points':'y', 'text':'y'})
     # plt.legend(loc='upper right', bbox_to_anchor=(2, 1), ncol=2)
