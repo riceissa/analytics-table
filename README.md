@@ -108,12 +108,12 @@ DATABASE = "analyticstable"
 PASSWORD = ""
 ```
 
-### Install Google Analytics API library, MySQL connector, and adjustText
+### Install Google Analytics API library and MySQL connector
 
 Run:
 
 ```bash
-sudo pip install --upgrade google-api-python-client mysql-connector-python adjustText
+sudo pip install --upgrade google-api-python-client mysql-connector-python
 ```
 
 ([source](https://developers.google.com/analytics/devguides/reporting/core/v4/quickstart/service-py#2_install_the_client_library))
