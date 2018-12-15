@@ -84,10 +84,11 @@ def print_table(projects, pageviews_data):
     <body>
     ''')
 
-    print("<table>")
     print('''
         <img src="data:image/png;base64, %s" />
     ''' % plot_data(projects, pageviews_data))
+
+    print("<table>")
     print("<thead>")
     print("  <tr>")
     print("  <th>Project title</th>")
