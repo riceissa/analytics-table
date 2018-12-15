@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import mysql.connector
-mport matplotlib
+import matplotlib
 # Force matplotlib to not use any Xwindows backend.
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
