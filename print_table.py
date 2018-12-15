@@ -29,8 +29,8 @@ def main():
 
     cursor.execute("""select project_title, url from projects""")
     projects = cursor.fetchall()
-    # pdb.set_trace()
     print_table(projects, pageviews_data)
+
 
 def plot_data(projects, pageviews_data):
     for project_title, _ in projects:
@@ -46,7 +46,6 @@ def plot_data(projects, pageviews_data):
     plt.savefig(buf, format='png')
     buf.seek(0)
     return base64.b64encode(buf.read()).decode('utf-8')
-
 
 
 def print_table(projects, pageviews_data):
@@ -121,6 +120,7 @@ def print_table(projects, pageviews_data):
     </body>
     </html>
     ''')
+
 
 if __name__ == "__main__":
     main()
