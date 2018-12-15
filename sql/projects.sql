@@ -18,4 +18,11 @@ insert into projects(project_title, url, view_id, start_date) values
     ,('AI Watch','https://aiwatch.issarice.com/', '163268990', '2017-10-01')
     ,('Org Watch', 'https://orgwatch.issarice.com/', '177871658', '2018-06-17')
     ,('Timelines Wiki', 'https://timelines.issarice.com/', '142661718', '2017-03-01')
+    ,('BART','https://bart.vipulnaik.com/','151101984','2017-05-21')
+    ,('Calculus subwiki','https://calculus.subwiki.org/','50145310','2011-09-05')
+    ,('Cellbio subwiki','https://cellbio.subwiki.org/','51788762','2011-10-20')
+    ,('Cognito Mentoring','https://cognitomentoring.org/','80278113','2013-12-21')
+    ,('Commalg subwiki','https://commalg.subwiki.org/','11272366','2008-09-11')
+    ,('Companal subwiki','https://companal.subwiki.org/','11272518','2008-09-11')
+    ,('Contract work for Vipul Naik','https://contractwork.vipulnaik.com/','137051483','2017-1-02')
 ;
