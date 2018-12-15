@@ -1,5 +1,7 @@
 # Analytics table for Vipul Naik's projects
 
+Live at https://analytics.vipulnaik.com/
+
 ## Project layout
 
 - `fetch_pageviews.py`: this script queries Google Analytics using its API, and
