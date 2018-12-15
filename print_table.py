@@ -44,9 +44,9 @@ def plot_data(projects, pageviews_data):
                 xs.append(datetime.datetime(year, month, 1))
                 ys.append(views)
         plt.plot(xs, ys, label=project_title)
-    plt.legend(loc='upper left')
+    plt.legend(loc='upper right', bbox_to_anchor=(2, 1), ncol=2)
     buf = io.BytesIO()
-    plt.savefig(buf, format='png')
+    plt.savefig(buf, format='png', bbox_inches="tight")
     buf.seek(0)
     return base64.b64encode(buf.read()).decode('utf-8')
 
