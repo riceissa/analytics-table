@@ -56,13 +56,14 @@ def main():
 
     cursor.execute("""select project_title, url from projects""")
     projects = cursor.fetchall()
-    print_table(projects, pageviews_data)
+    total_pageviews = get_total_pageviews(pageviews_data)
+    print_table(projects, pageviews_data, total_pageviews)
 
 
-def plot_data(projects, pageviews_data):
+def plot_data(projects, pageviews_data, total_pageviews):
     dash_styles = [(3,3), (5,2,20,2), (1,1)]
     style_index = 0
-    for project_title, _ in projects:
+    for project_title, _ in sorted(total_pageviews.items(), key=lambda x: x[1], reverse=True):
         xs = []
         ys = []
         for title, views, year, month in pageviews_data:
@@ -80,7 +81,7 @@ def plot_data(projects, pageviews_data):
     return base64.b64encode(buf.read()).decode('utf-8')
 
 
-def print_table(projects, pageviews_data):
+def print_table(projects, pageviews_data, total_pageviews):
     all_months = sorted(set((year, month) for _, _, year, month in pageviews_data),
                         reverse=True)
 
@@ -115,7 +116,7 @@ def print_table(projects, pageviews_data):
 
     print('''
         <img src="data:image/png;base64, %s" />
-    ''' % plot_data(projects, pageviews_data))
+    ''' % plot_data(projects, pageviews_data, total_pageviews))
 
     print("<table>")
     print("<thead>")
@@ -129,11 +130,13 @@ def print_table(projects, pageviews_data):
     print("  </tr>")
     print("</thead>")
     print("<tbody>")
-    for project_title, url in projects:
+    project_title_to_url = {project_title: url for project_title, url in projects}
+    for project_title, _ in sorted(total_pageviews.items(), key=lambda x: x[1], reverse=True):
         data = {(year, month): views for title, views, year, month in pageviews_data
                 if title == project_title}
         print("<tr>")
-        print('''<td><a href="%s">%s</a></td>''' % (url, project_title))
+        print('''<td><a href="%s">%s</a></td>''' % (project_title_to_url[project_title],
+                                                    project_title))
         print('''<td style="text-align: right;">{:,}</td>'''.format(sum(data.values())))
         for month in all_months:
             if month in data:
@@ -153,6 +156,20 @@ def print_table(projects, pageviews_data):
     </body>
     </html>
     ''')
+
+
+def get_total_pageviews(pageviews_data):
+    """Given all the pageviews rows, produce a dictionary with project titles
+    as keys and total pageviews (across all months) as values. This allows us
+    to sort projects by pageviews."""
+    total_pageviews = {}
+    for row in pageviews_data:
+        title, views, year, month = row
+        if title in total_pageviews:
+            total_pageviews[title] += views
+        else:
+            total_pageviews[title] = 0
+    return total_pageviews
 
 
 if __name__ == "__main__":
