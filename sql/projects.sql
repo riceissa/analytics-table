@@ -17,7 +17,7 @@ insert into projects(project_title, url, view_id, start_date) values
     ('Cause Prioritization Wiki', 'https://causeprioritization.org/', '103832319', '2014-11-01')
     ,('AI Watch','https://aiwatch.issarice.com/', '163268990', '2017-10-01')
     ,('Org Watch', 'https://orgwatch.issarice.com/', '177871658', '2018-06-17')
-    ,('Timelines Wiki', 'https://timelines.issarice.com/', '142661718', '2017-03-01')
+    ,('Timelines wiki', 'https://timelines.issarice.com/', '142661718', '2017-03-01')
     ,('BART','https://bart.vipulnaik.com/','151101984','2017-05-21')
     ,('Calculus subwiki','https://calculus.subwiki.org/','50145310','2011-09-05')
     ,('Cellbio subwiki','https://cellbio.subwiki.org/','51788762','2011-10-20')
@@ -43,5 +43,5 @@ insert into projects(project_title, url, view_id, start_date) values
     ,('Wikipedia Views','https://wikipediaviews.org/','88649657','2014-07-16')
     ,('Content Creation Wiki', 'https://contentcreation.issarice.com/', '156584158', '2017-07-01')
     ,('Issa Rice', 'https://issarice.com/', '104557782', '2015-05-01')
-    ,('Computing Data Project', 'https://computingdata.vipulnaik.com/', '194324723', '2019-04-28')
+    ,('Computing data project', 'https://computingdata.vipulnaik.com/', '194324723', '2019-04-28')
 ;
