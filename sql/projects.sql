@@ -44,5 +44,5 @@ insert into projects(project_title, url, view_id, start_date) values
     ,('Content Creation Wiki', 'https://contentcreation.issarice.com/', '156584158', '2017-07-01')
     ,('Issa Rice', 'https://issarice.com/', '104557782', '2015-05-01')
     ,('Computing data project', 'https://computingdata.vipulnaik.com/', '194324723', '2019-04-28')
-    ,('Diet Watch','https://dietwatch.vipulnaik.com/','UA-141732375-1', '2019-06-08')
+    ,('Diet Watch','https://dietwatch.vipulnaik.com/','141732375', '2019-06-08')
 ;
