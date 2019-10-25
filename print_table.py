@@ -94,8 +94,9 @@ def print_table(projects, pageviews_data, total_pageviews):
       <script src="/jquery.min.js"></script>
       <script src="/jquery.tablesorter.js"></script>
       <style type="text/css">
-        body { font-size: 12px; }
+        body { }
         table {
+          font-size: 12px;
           background-color: #f9f9f9;
           border-collapse: collapse;
         }
@@ -113,6 +114,8 @@ def print_table(projects, pageviews_data, total_pageviews):
     </head>
     <body>
     ''')
+
+    print_intro()
 
     print('''
         <img src="data:image/png;base64, %s" />
@@ -170,6 +173,21 @@ def get_total_pageviews(pageviews_data):
         else:
             total_pageviews[title] = 0
     return total_pageviews
+
+
+def print_intro():
+    print("""<p>
+                This website displays pageviews data for Vipul Naik’s online projects
+                (as well as for some of Issa Rice’s projects).
+                Pageviews data come from Google Analytics.
+                The site exists to give people one measure of the impact the
+                projects are having.
+                Inclusion criteria of projects for this site are informal at the moment;
+                the aim is to include all projects where Google Analytics tracking code
+                can be added, though we may be missing some sites for whatever reason.
+                The source code for this project is available on
+                <a href="https://github.com/riceissa/analytics-table">GitHub</a>.
+            </p>""")
 
 
 if __name__ == "__main__":
