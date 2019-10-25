@@ -18,40 +18,34 @@ def main():
                                   password=login.PASSWORD)
     cursor = cnx.cursor()
 
-    if len(sys.argv) == 2+1:
-        start_date = sys.argv[1]
-        end_date = sys.argv[2]
-        if not start_date:
-            start_date = "2000-01-01"
-        if not end_date:
-            end_date = datetime.date.today() + datetime.timedelta(days=3)
-        # We are given both a start and end date
-        cursor.execute("""
-               select
-                   project_title,
-                   sum(pageviews),
-                   year(pageviews_date),
-                   month(pageviews_date)
-               from pageviews
-               where pageviews_date between %s and %s
-               group by
-                   project_title,
-                   year(pageviews_date),
-                   month(pageviews_date)""", (start_date, end_date))
-    else:
-        # No start/end dates given; use everything
-        assert len(sys.argv) == 1
-        cursor.execute("""
-               select
-                   project_title,
-                   sum(pageviews),
-                   year(pageviews_date),
-                   month(pageviews_date)
-               from pageviews
-               group by
-                   project_title,
-                   year(pageviews_date),
-                   month(pageviews_date)""")
+    assert len(sys.argv) == 3+1, "Script must be run with right number of arguments"
+
+    start_date = sys.argv[1]
+    end_date = sys.argv[2]
+    title_regex = sys.argv[3]
+    if not start_date:
+        start_date = "2000-01-01"
+    if not end_date:
+        end_date = datetime.date.today() + datetime.timedelta(days=3)
+    if not title_regex:
+        # Match any non-empty title. I don't think this slows down the query
+        # (especially given the small number of projects) and it simplifies the
+        # query structure (we don't need separate cases for whether the title
+        # regex exists or not).
+        title_regex = "."
+    cursor.execute("""
+           select
+               project_title,
+               sum(pageviews),
+               year(pageviews_date),
+               month(pageviews_date)
+           from pageviews
+           where (pageviews_date between %s and %s)
+                 and (project_title REGEXP %s)
+           group by
+               project_title,
+               year(pageviews_date),
+               month(pageviews_date)""", (start_date, end_date, title_regex))
     pageviews_data = cursor.fetchall()
 
     cursor.execute("""select project_title, url from projects""")
