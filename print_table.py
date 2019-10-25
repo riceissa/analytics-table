@@ -69,6 +69,7 @@ def plot_data(projects, pageviews_data, total_pageviews):
                      dashes=dash_styles[style_index])
             style_index = (style_index + 1) % len(dash_styles)
     plt.legend(loc='upper right', bbox_to_anchor=(2.3, 1), ncol=2)
+    plt.xticks(rotation=45)
     buf = io.BytesIO()
     plt.savefig(buf, format='png', bbox_inches="tight")
     buf.seek(0)
