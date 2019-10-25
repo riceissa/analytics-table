@@ -142,6 +142,21 @@ def print_table(projects, pageviews_data, total_pageviews):
             else:
                 print('''<td style="text-align: right;">n.a.</td>''')
         print("</tr>")
+    print("<tfoot>")
+    print("<tr>")
+    print("<th>Total</th>")
+    # This is the pageviews total across all projects and all months
+    grand_total = sum(views for _, views, _, _ in pageviews_data)
+    print('''<th style="text-align: right;">{:,}</th>'''.format(grand_total))
+    # This is conceptually clean (for each month, find all pageviews data
+    # points matching that month, and sum over them) but inefficient (we must
+    # loop over all data points each time). Since the number of projects is
+    # small, this seems fine for now, but we may want to rewrite this later.
+    for month in all_months:
+        total_for_month = sum(views for _, views, y, m in pageviews_data if (y, m) == month)
+        print('''<th style="text-align: right;">{:,}</th>'''.format(total_for_month))
+    print("</tr>")
+    print("</tfoot>")
 
     print("</tbody>")
     print("</table>")
