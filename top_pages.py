@@ -60,7 +60,8 @@ def main():
     for pagepath in all_pagepaths:
         print("<tr>")
         print('''<th>%s</th>''' % abbreviated(pagepath))
-        print('''<td></td>''')
+        total_for_pagepath = sum(data_dict[(y, m, pp)] for (y, m, pp) in data_dict if pp == pagepath)
+        print('''<td style="text-align: right;">{:,}</td>'''.format(total_for_pagepath))
         for month in all_months:
             y, m = month
             if (y, m, pagepath) in data_dict:
