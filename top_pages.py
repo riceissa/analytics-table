@@ -41,6 +41,9 @@ def main():
 
     util.print_head()
 
+    print("""<p>A value of 0 in the table below includes the possibility that the
+                page did not exist in that month.</p>""")
+
     print('''<div class="container">''')
     print("<table>")
     print("<thead>")
@@ -63,7 +66,7 @@ def main():
             if (y, m, pagepath) in data_dict:
                 print('''<td style="text-align: right;">{:,}</td>'''.format(data_dict[(y, m, pagepath)]))
             else:
-                print('''<td style="text-align: right;">n.a.</td>''')
+                print('''<td style="text-align: right;">0</td>''')
         print("</tr>")
     print("</tbody>")
     print("</table>")
