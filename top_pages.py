@@ -56,7 +56,7 @@ def main():
     print("<tbody>")
     for pagepath in all_pagepaths:
         print("<tr>")
-        print('''<td>%s</td>''' % pagepath)
+        print('''<th>%s</th>''' % abbreviated(pagepath))
         print('''<td></td>''')
         for month in all_months:
             y, m = month
@@ -85,6 +85,13 @@ def normalized_dict(data):
         else:
             result[key] = pageviews
     return result
+
+
+def abbreviated(string):
+    if len(string) < 100:
+        return string
+    else:
+        return string[:100] + "…"
 
 
 if __name__ == "__main__":
