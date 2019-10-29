@@ -11,6 +11,7 @@ import io
 import sys
 
 import login
+import util
 
 
 def main():
@@ -80,35 +81,7 @@ def print_table(projects, pageviews_data, total_pageviews):
     all_months = sorted(set((year, month) for _, _, year, month in pageviews_data),
                         reverse=True)
 
-    print('''<!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-      <link rel="stylesheet" href="/tablesorter.css">
-      <script src="/jquery.min.js"></script>
-      <script src="/jquery.tablesorter.js"></script>
-      <style type="text/css">
-        body { }
-        table {
-          font-size: 12px;
-          background-color: #f9f9f9;
-          border-collapse: collapse;
-        }
-        table th {
-          background-color: #f2f2f2;
-          border: 1px solid #aaaaaa;
-          padding: 5px 10px;
-        }
-        table td {
-          border: 1px solid #aaaaaa;
-          padding: 5px 10px;
-        }
-      </style>
-      <title>Vipul’s Empire</title>
-    </head>
-    <body>
-    ''')
+    util.print_head()
 
     print_intro()
 
@@ -160,16 +133,7 @@ def print_table(projects, pageviews_data, total_pageviews):
 
     print("</tbody>")
     print("</table>")
-    print('''
-        <script>
-        $(function(){
-            $("table").tablesorter({sortInitialOrder: "desc"});
-          });
-    </script>
-    </body>
-    </html>
-    ''')
-
+    util.print_closing()
 
 def get_total_pageviews(pageviews_data):
     """Given all the pageviews rows, produce a dictionary with project titles
