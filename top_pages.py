@@ -39,6 +39,10 @@ def main():
     all_months = sorted(set((year, month) for year, month, _ in data_dict), reverse=True)
     all_pagepaths = sorted(set(pagepath for _, _, pagepath in data_dict))
 
+    cursor.execute("""select project_title, url from projects""")
+    projects = cursor.fetchall()
+    project_title_to_url = {project_title: url for project_title, url in projects}
+
     util.print_head()
 
     print("""<p>A value of 0 in the table below includes the possibility that the
@@ -62,7 +66,14 @@ def main():
         total_pageviews[pp] = total_pageviews.get(pp, 0) + data_dict[(y, m, pp)]
     for pagepath, total_for_pagepath in sorted(total_pageviews.items(), key=lambda x: x[1], reverse=True)[:100]:
         print("<tr>")
-        print('''<th>%s</th>''' % abbreviated(pagepath))
+        project_url = project_title_to_url[project_title]
+        # pagepath already begins with a slash, so remove it from the project
+        # url if it exists
+        if project_url.endswith('/'):
+            project_url = project_url[:-1]
+        print('''<th><a href="%s%s">%s</a></th>''' % (project_url,
+                                                      pagepath,
+                                                      abbreviated(pagepath)))
         print('''<td style="text-align: right;">{:,}</td>'''.format(total_for_pagepath))
         for month in all_months:
             y, m = month
