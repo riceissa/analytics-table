@@ -57,10 +57,12 @@ def main():
     print("  </tr>")
     print("</thead>")
     print("<tbody>")
-    for pagepath in all_pagepaths:
+    total_pageviews = {}
+    for (y, m, pp) in data_dict:
+        total_pageviews[pp] = total_pageviews.get(pp, 0) + data_dict[(y, m, pp)]
+    for pagepath, total_for_pagepath in sorted(total_pageviews.items(), key=lambda x: x[1], reverse=True)[:100]:
         print("<tr>")
         print('''<th>%s</th>''' % abbreviated(pagepath))
-        total_for_pagepath = sum(data_dict[(y, m, pp)] for (y, m, pp) in data_dict if pp == pagepath)
         print('''<td style="text-align: right;">{:,}</td>'''.format(total_for_pagepath))
         for month in all_months:
             y, m = month
