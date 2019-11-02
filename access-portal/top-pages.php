@@ -10,10 +10,19 @@ if ($_REQUEST['project_title'] ?? '') {
   $project_title = "";
 }
 
+if ($_REQUEST['limit_pagepaths'] ?? '') {
+  $limit_pagepaths = $_REQUEST['limit_pagepaths'];
+  // Keep only digits.
+  $limit_pagepaths = preg_replace('/[^0-9]/', '', $limit_pagepaths);
+} else {
+  $limit_pagepaths = "";
+}
+
+
 // For some reason when Python is invoked through PHP, it runs into Unicode
 // encoding issues when trying to print (because it defaults to some
 // ASCII-only encoding). So we have to force it to use UTF-8 here.
-$command = "PYTHONIOENCODING=utf-8 ../top_pages.py " . escapeshellarg($project_title);
+$command = "PYTHONIOENCODING=utf-8 ../top_pages.py " . escapeshellarg($project_title) . " " . escapeshellarg($limit_pagepaths);
 
 $output = shell_exec($command);
 echo $output;

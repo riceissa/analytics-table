@@ -16,9 +16,13 @@ def main():
                                   password=login.PASSWORD)
     cursor = cnx.cursor()
 
-    assert len(sys.argv) == 1+1, "Script must be run with right number of arguments"
+    assert len(sys.argv) == 2+1, "Script must be run with right number of arguments"
 
     project_title = sys.argv[1]
+    try:
+        limit_pagepaths = int(sys.argv[2])
+    except ValueError:
+        limit_pagepaths = 100
     if not project_title:
         project_title = "Vipul Naik"
     cursor.execute("""
@@ -74,7 +78,7 @@ def main():
     total_pageviews = {}
     for (y, m, pp) in data_dict:
         total_pageviews[pp] = total_pageviews.get(pp, 0) + data_dict[(y, m, pp)]
-    for pagepath, total_for_pagepath in sorted(total_pageviews.items(), key=lambda x: x[1], reverse=True)[:100]:
+    for pagepath, total_for_pagepath in sorted(total_pageviews.items(), key=lambda x: x[1], reverse=True)[:limit_pagepaths]:
         print("<tr>")
         project_url = project_title_to_url[project_title]
         # pagepath already begins with a slash, so remove it from the project
