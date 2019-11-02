@@ -85,6 +85,7 @@ def normalized_dict(data):
     for (year, month, pagepath, pageviews) in data:
         pagepath = fbclid_pat.sub('', pagepath)
         pagepath = printable_pat.sub('', pagepath)
+        pagepath = pagepath.replace(' ', '_')
         key = (year, month, pagepath)
         if key in result:
             result[key] = result[key] + pageviews
