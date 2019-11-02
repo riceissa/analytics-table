@@ -55,7 +55,7 @@ def main():
             month(pageviews_date),
             pagepath
     """, (project_title, start_date, end_date, pagepath_regex))
-    data_dict = normalized_dict(cursor.fetchall())
+    data_dict = normalized_dict(cursor.fetchall(), project_title)
     all_months = sorted(set((year, month) for year, month, _ in data_dict), reverse=True)
     all_pagepaths = sorted(set(pagepath for _, _, pagepath in data_dict))
 
@@ -119,14 +119,15 @@ def main():
 
     util.print_closing()
 
-def normalized_dict(data):
+def normalized_dict(data, project_title):
     result = {}
     fbclid_pat = re.compile(r'\?fbclid=[a-zA-Z0-9_-]+$')
     printable_pat = re.compile(r'\?printable=')
     for (year, month, pagepath, pageviews) in data:
         pagepath = fbclid_pat.sub('', pagepath)
-        pagepath = printable_pat.sub('', pagepath)
-        pagepath = pagepath.replace(' ', '_')
+        if project_title == "Cause Prioritization Wiki":
+            pagepath = printable_pat.sub('', pagepath)
+            pagepath = pagepath.replace(' ', '_')
         key = (year, month, pagepath)
         if key in result:
             result[key] = result[key] + pageviews
