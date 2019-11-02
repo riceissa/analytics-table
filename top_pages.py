@@ -46,13 +46,22 @@ def main():
     util.print_head()
 
     print("""<p>A value of 0 in the table below includes the possibility that the
-                page did not exist in that month.</p>""")
+                page did not exist in that month. If viewing the table with a
+                limit to the number of pagepaths shown (which includes the
+                default view), sorting by a month may not show the actual
+                top pages for that month; rather it shows the top <em>n</em>
+                pages of all time sorted by pageviews for that month. (So for
+                instance if a page received a huge number of views in one
+                month but received no views in all other months, it may not
+                make it to the top <em>n</em> pages of all time even if it
+                is actually was the most viewed page for some month. Such a
+                page would not be shown in the table.)</p>""")
 
     print('''<div class="container">''')
     print("<table>")
     print("<thead>")
     print("  <tr>")
-    print("  <th>Project title</th>")
+    print("  <th>Pagepath</th>")
     print("  <th>Total</th>")
     for year, month in all_months:
         print("  <th>")
