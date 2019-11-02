@@ -23,6 +23,10 @@ def print_head():
           position: sticky;
           top: 0;
         }
+        thead th:first-child {
+          left: 0;
+          z-index: 1;
+        }
         tbody th {
           position: -webkit-sticky; /* for Safari */
           position: sticky;
