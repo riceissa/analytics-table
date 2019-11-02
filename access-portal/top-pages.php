@@ -18,11 +18,24 @@ if ($_REQUEST['limit_pagepaths'] ?? '') {
   $limit_pagepaths = "";
 }
 
+if ($_REQUEST['start_date'] ?? '') {
+  $start_date = $_REQUEST['start_date'];
+  $start_date = preg_replace('/[^0-9-]/', '', $start_date);
+} else {
+  $start_date = "";
+}
+
+if ($_REQUEST['end_date'] ?? '') {
+  $end_date = $_REQUEST['end_date'];
+  $end_date = preg_replace('/[^0-9-]/', '', $end_date);
+} else {
+  $end_date = "";
+}
 
 // For some reason when Python is invoked through PHP, it runs into Unicode
 // encoding issues when trying to print (because it defaults to some
 // ASCII-only encoding). So we have to force it to use UTF-8 here.
-$command = "PYTHONIOENCODING=utf-8 ../top_pages.py " . escapeshellarg($project_title) . " " . escapeshellarg($limit_pagepaths);
+$command = "PYTHONIOENCODING=utf-8 ../top_pages.py " . escapeshellarg($project_title) . " " . escapeshellarg($limit_pagepaths) . " " . escapeshellarg($start_date) . " " . escapeshellarg($end_date);
 
 $output = shell_exec($command);
 echo $output;

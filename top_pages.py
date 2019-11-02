@@ -16,15 +16,21 @@ def main():
                                   password=login.PASSWORD)
     cursor = cnx.cursor()
 
-    assert len(sys.argv) == 2+1, "Script must be run with right number of arguments"
+    assert len(sys.argv) == 4+1, "Script must be run with right number of arguments"
 
     project_title = sys.argv[1]
+    if not project_title:
+        project_title = "Vipul Naik"
     try:
         limit_pagepaths = int(sys.argv[2])
     except ValueError:
         limit_pagepaths = 100
-    if not project_title:
-        project_title = "Vipul Naik"
+    start_date = sys.argv[3]
+    end_date = sys.argv[4]
+    if not start_date:
+        start_date = "2000-01-01"
+    if not end_date:
+        end_date = datetime.date.today() + datetime.timedelta(days=3)
     cursor.execute("""
         select
             year(pageviews_date),
@@ -34,11 +40,12 @@ def main():
         from pageviews
         where
             project_title = %s
+            and pageviews_date between %s and %s
         group by
             year(pageviews_date),
             month(pageviews_date),
             pagepath
-    """, (project_title,))
+    """, (project_title, start_date, end_date))
     data_dict = normalized_dict(cursor.fetchall())
     all_months = sorted(set((year, month) for year, month, _ in data_dict), reverse=True)
     all_pagepaths = sorted(set(pagepath for _, _, pagepath in data_dict))
