@@ -16,7 +16,7 @@ def main():
                                   password=login.PASSWORD)
     cursor = cnx.cursor()
 
-    assert len(sys.argv) == 4+1, "Script must be run with right number of arguments"
+    assert len(sys.argv) == 5+1, "Script must be run with right number of arguments"
 
     project_title = sys.argv[1]
     if not project_title:
@@ -31,6 +31,14 @@ def main():
         start_date = "2000-01-01"
     if not end_date:
         end_date = datetime.date.today() + datetime.timedelta(days=3)
+    pagepath_regex = sys.argv[5]
+    if not pagepath_regex:
+        # Match any non-empty pagepath. This might slow down the query but it
+        # simplifies the query structure (we don't need separate cases for
+        # whether the title regex exists or not). We might want to change this
+        # later so that if there is no regex we do a different query that skips
+        # the regex part.
+        pagepath_regex = "."
     cursor.execute("""
         select
             year(pageviews_date),
@@ -41,11 +49,12 @@ def main():
         where
             project_title = %s
             and pageviews_date between %s and %s
+            and pagepath regexp %s
         group by
             year(pageviews_date),
             month(pageviews_date),
             pagepath
-    """, (project_title, start_date, end_date))
+    """, (project_title, start_date, end_date, pagepath_regex))
     data_dict = normalized_dict(cursor.fetchall())
     all_months = sorted(set((year, month) for year, month, _ in data_dict), reverse=True)
     all_pagepaths = sorted(set(pagepath for _, _, pagepath in data_dict))
