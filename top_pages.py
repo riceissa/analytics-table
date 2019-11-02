@@ -68,7 +68,7 @@ def main():
     print("""<p>A value of 0 in the table below includes the possibility that the
                 page did not exist in that month. If viewing the table with a
                 limit to the number of pagepaths shown (which includes the
-                default view of showing the top <em>n</em> = 100 pages of all time),
+                default view of showing the top <em>n</em>&nbsp;=&nbsp;100 pages of all time),
                 sorting by a month may not show the actual
                 top pages for that month; rather it shows the top <em>n</em>
                 pages of all time sorted by pageviews for that month. (So for
