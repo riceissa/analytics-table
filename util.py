@@ -23,6 +23,15 @@ def print_head():
           position: sticky;
           top: 0;
         }
+        tfoot th {
+          position: -webkit-sticky; /* for Safari */
+          position: sticky;
+          bottom: 0;
+        }
+        tfoot th:first-child {
+          left: 0;
+          z-index: 1;
+        }
         thead th:first-child {
           left: 0;
           z-index: 1;
@@ -40,6 +49,10 @@ def print_head():
           position: sticky;
           left: 224px;
           background-color: #f9f9f9;
+        }
+        tfoot th:nth-child(2) {
+          left: 224px;
+          z-index: 1;
         }
 
         thead tr th:first-child,
