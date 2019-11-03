@@ -32,7 +32,25 @@ def print_head():
           position: sticky;
           left: 0;
         }
+        thead th:nth-child(2) {
+          left: 224px;
+          z-index: 1;
+        }
+        tbody td:nth-child(2) {
+          position: sticky;
+          left: 224px;
+          background-color: #f9f9f9;
+        }
 
+        thead tr th:first-child,
+        tbody tr td:first-child,
+        tbody tr th:first-child
+        {
+          width: 200px;
+          min-width: 200px;
+          max-width: 200px;
+          word-break: break-all;
+        }
 
         table {
           font-size: 12px;
