@@ -51,6 +51,9 @@ def main():
 
     cursor.execute("""select project_title, url from projects""")
     projects = cursor.fetchall()
+    # It is convenient to have the total pageviews here since both the table
+    # and the graph require knowing the list of projects in order of most
+    # pageviews
     total_pageviews = get_total_pageviews(pageviews_data)
     print_table(projects, pageviews_data, total_pageviews)
 
