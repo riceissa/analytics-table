@@ -96,7 +96,7 @@ def last_day_of_month(year, month):
         return datetime.date(year, month + 1, 1) - datetime.timedelta(days=1)
 
 
-def get_report(analytics, view_id, start_date, end_date, page_token=None):
+def get_report(analytics, view_id, table, start_date, end_date, page_token=None):
     """Queries the Analytics Reporting API V4.
 
     Args:
@@ -111,12 +111,17 @@ def get_report(analytics, view_id, start_date, end_date, page_token=None):
         'viewId': view_id,
         'dateRanges': [{'startDate': start_date, 'endDate': end_date}],
         'metrics': [{'expression': 'ga:pageviews'}],
-
-        # This makes the pageviews separated into daily granularity
-        'dimensions': [{'name': 'ga:date'}],
-
         'pageSize': "1000",
     }
+    if table == "pageviews":
+        # This makes the pageviews separated into daily granularity
+        report_dict['dimensions'] = [{'name': 'ga:date'}]
+    elif table == "path_pageviews":
+        # This makes the pageviews separated into daily granularity for each
+        # pagepath
+        report_dict['dimensions'] = [{'name': 'ga:date'}, {'name': 'ga:pagePath'}]
+    else:
+        raise ValueError("Please specify a valid MySQL table.")
 
     # See https://developers.google.com/analytics/devguides/reporting/core/v4/basics#pagination
     if page_token:
