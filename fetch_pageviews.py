@@ -65,10 +65,7 @@ def main():
         pageviews = pageviews_for_project(analytics, view_id, "path_pageviews", last_date)
         records = [(project_title, date_string, pagepath, views) for date_string, pagepath, views in pageviews]
 
-        # TODO: the "ignore" is because MySQL can't distinguish lower/upper
-        # cases by default, so we get some clobbering that messes with the
-        # uniqueness of keys
-        insert_query = """insert ignore into path_pageviews(project_title, pageviews_date, pagepath, pageviews)
+        insert_query = """insert into path_pageviews(project_title, pageviews_date, pagepath, pageviews)
                           values (%s, %s, %s, %s)"""
         cursor.executemany(insert_query, records)
         cnx.commit()
