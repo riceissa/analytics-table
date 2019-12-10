@@ -47,6 +47,32 @@ def main():
         cursor.executemany(insert_query, records)
         cnx.commit()
 
+    # Fetch data into the path_pageviews table.
+    for project in projects:
+        project_title, view_id, start_date = project
+        # Get the date up to which we have recorded pageviews data for this project
+        cursor.execute("""select pageviews_date from path_pageviews where project_title = %s
+                          order by pageviews_date desc limit 1""", (project_title,))
+        lst = cursor.fetchall()
+        if lst:
+            last_date = lst[0][0] + datetime.timedelta(days=1)
+        else:
+            # This means we have no data for this project, so start from the
+            # very beginning
+            last_date = start_date
+
+        pageviews = pageviews_for_project(analytics, view_id, last_date)
+        records = [(project_title, date_string, pagepath, views) for date_string, pagepath, views in pageviews]
+        pdb.set_trace()
+
+        # TODO: the "ignore" is because MySQL can't distinguish lower/upper
+        # cases by default, so we get some clobbering that messes with the
+        # uniqueness of keys
+        insert_query = """insert ignore into pageviews(project_title, pageviews_date, pagepath, pageviews)
+                          values (%s, %s, %s, %s)"""
+        cursor.executemany(insert_query, records)
+        cnx.commit()
+
 
 def initialize_analyticsreporting():
     """Initializes an Analytics Reporting API V4 service object.
