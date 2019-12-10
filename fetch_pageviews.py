@@ -40,7 +40,7 @@ def main():
             # very beginning
             last_date = start_date
 
-        pageviews = pageviews_for_project(analytics, view_id, last_date)
+        pageviews = pageviews_for_project(analytics, view_id, "pageviews", last_date)
         records = [(project_title, date_string, views) for date_string, views in pageviews]
 
         insert_query = """insert into pageviews(project_title, pageviews_date, pageviews)
@@ -62,7 +62,7 @@ def main():
             # very beginning
             last_date = start_date
 
-        pageviews = pageviews_for_project(analytics, view_id, last_date)
+        pageviews = pageviews_for_project(analytics, view_id, "path_pageviews", last_date)
         records = [(project_title, date_string, pagepath, views) for date_string, pagepath, views in pageviews]
 
         # TODO: the "ignore" is because MySQL can't distinguish lower/upper
@@ -170,7 +170,7 @@ def extracted_pageviews(response):
     return result
 
 
-def pageviews_for_project(analytics, view_id, start_date):
+def pageviews_for_project(analytics, view_id, table, start_date):
     result = []
 
     # Google Analytics records pageviews for partial days, so make sure that we
@@ -184,7 +184,7 @@ def pageviews_for_project(analytics, view_id, start_date):
 
     page_token = None
     while True:
-        response = get_report(analytics, view_id, start_date.strftime("%Y-%m-%d"),
+        response = get_report(analytics, view_id, table, start_date.strftime("%Y-%m-%d"),
                               upper_limit_date.strftime("%Y-%m-%d"), page_token)
         result.extend(extracted_pageviews(response))
         if "nextPageToken" in response["reports"][0]:
