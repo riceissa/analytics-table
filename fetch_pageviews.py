@@ -68,7 +68,7 @@ def main():
         # TODO: the "ignore" is because MySQL can't distinguish lower/upper
         # cases by default, so we get some clobbering that messes with the
         # uniqueness of keys
-        insert_query = """insert ignore into pageviews(project_title, pageviews_date, pagepath, pageviews)
+        insert_query = """insert ignore into path_pageviews(project_title, pageviews_date, pagepath, pageviews)
                           values (%s, %s, %s, %s)"""
         cursor.executemany(insert_query, records)
         cnx.commit()
