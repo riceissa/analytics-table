@@ -5,7 +5,9 @@ create table path_pageviews(
     # The date for which the pageviews are recorded.
     pageviews_date date not null,
 
-    pagepath varchar(500) not null,
+    # Use a binary collation to distinguish upper and lower cases
+    # https://stackoverflow.com/a/6448861/3422337
+    pagepath varchar(500) character set utf8 collate utf8_bin not null,
 
     pageviews int(8) not null,
 
