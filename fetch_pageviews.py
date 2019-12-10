@@ -26,6 +26,7 @@ def main():
 
     cursor.execute("""select project_title, view_id, start_date from projects""")
     projects = cursor.fetchall()
+    # Fetch data into the pageviews table.
     for project in projects:
         project_title, view_id, start_date = project
         # Get the date up to which we have recorded pageviews data for this project
@@ -63,7 +64,6 @@ def main():
 
         pageviews = pageviews_for_project(analytics, view_id, last_date)
         records = [(project_title, date_string, pagepath, views) for date_string, pagepath, views in pageviews]
-        pdb.set_trace()
 
         # TODO: the "ignore" is because MySQL can't distinguish lower/upper
         # cases by default, so we get some clobbering that messes with the
