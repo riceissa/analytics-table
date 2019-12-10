@@ -145,7 +145,6 @@ def extracted_pageviews(response):
 
         for row in report.get('data', {}).get('rows', []):
             dimensions = row.get('dimensions', [])
-            assert len(dimensions) == 1, dimensions
 
             dateRangeValues = row.get('metrics', [])
             assert len(dateRangeValues) == 1, dateRangeValues
@@ -154,12 +153,19 @@ def extracted_pageviews(response):
             assert len(dim) == 8, dim
 
             date_string = dim[0:4] + "-" + dim[4:6] + "-" + dim[6:]
+            if len(dimensions) == 2:
+                pagepath = dimensions[1]
+            else:
+                pagepath = None
 
             pageviews_values = dateRangeValues[0]['values']
             assert len(pageviews_values) == 1, pageviews_values
 
             pageviews = int(pageviews_values[0])
-            result.append((date_string, pageviews))
+            if pagepath:
+                result.append((date_string, pagepath, pageviews))
+            else:
+                result.append((date_string, pageviews))
 
     return result
 
