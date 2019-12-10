@@ -10,6 +10,8 @@ def print_head():
       <script src="/jquery.tablesorter.js"></script>
       <style type="text/css">
         body { }
+        a { text-decoration: none; }
+        a:hover, a:active { text-decoration: underline; }
         /*
          Freezing the first column and row, from https://stackoverflow.com/a/50516259/3422337
         */
