@@ -45,7 +45,7 @@ def main():
             month(pageviews_date),
             pagepath,
             sum(pageviews)
-        from pageviews
+        from path_pageviews
         where
             project_title = %s
             and pageviews_date between %s and %s
