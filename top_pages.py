@@ -113,6 +113,24 @@ def main():
                 print('''<td style="text-align: right;">0</td>''')
         print("</tr>")
     print("</tbody>")
+    print("<tfoot>")
+    print("<tr>")
+    print("<th>Total of shown rows</th>")
+    grand_total = 0  # FIXME
+    print('''<th style="text-align: right;">{:,}</th>'''.format(grand_total))
+    for month in all_months:
+        total_for_month = sum(data_dict[(y, m, pp)] for y, m, pp in data_dict if (y, m) == month)
+        print('''<th style="text-align: right;">{:,}</th>'''.format(total_for_month))
+    print("</tr>")
+    print("<tr>")
+    print("<th>Total</th>")
+    grand_total = 0  # FIXME
+    print('''<th style="text-align: right;">{:,}</th>'''.format(grand_total))
+    for month in all_months:
+        total_for_month = sum(data_dict[(y, m, pp)] for y, m, pp in data_dict if (y, m) == month)
+        print('''<th style="text-align: right;">{:,}</th>'''.format(total_for_month))
+    print("</tr>")
+    print("</tfoot>")
     print("</table>")
     print("</div>")
 
