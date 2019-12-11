@@ -11,7 +11,10 @@ def print_head():
       <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
       <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/fixedcolumns/3.3.0/js/dataTables.fixedColumns.min.js"></script>
       <style type="text/css">
-        body { }
+        table {
+            font-size: 12px;
+            font-family: sans-serif;
+        }
         a { text-decoration: none; }
         a:hover, a:active { text-decoration: underline; }
 
