@@ -78,16 +78,22 @@ def main():
                 actually was the most viewed page for some month. Such a
                 page would not be shown in the table.)</p>""")
 
+    # Track the number of numerical columns in the table, so that we can tell
+    # DataTables which columns should be sorted in descending order
+    num_numerical_columns = 0
+
     print('''<div class="container">''')
-    print("<table>")
+    print('<table class="stripe row-border" cellspacing="0" width="100%">')
     print("<thead>")
     print("  <tr>")
     print("  <th>Pagepath</th>")
     print("  <th>Total</th>")
+    num_numerical_columns += 1
     for year, month in all_months:
         print("  <th>")
         print(datetime.date(year, month, 1).strftime("%B %Y"))
         print("  </th>")
+        num_numerical_columns += 1
     print("  </tr>")
     print("</thead>")
     print("<tbody>")
@@ -101,9 +107,8 @@ def main():
         # url if it exists
         if project_url.endswith('/'):
             project_url = project_url[:-1]
-        print('''<th><a href="%s%s">%s</a></th>''' % (project_url,
-                                                      pagepath,
-                                                      abbreviated(pagepath)))
+        print('''<th><a href="%s%s" title="%s">%s</a></th>''' %
+              (project_url, pagepath, pagepath, abbreviated(pagepath)))
         print('''<td style="text-align: right;">{:,}</td>'''.format(total_for_pagepath))
         for month in all_months:
             y, m = month
@@ -135,7 +140,7 @@ def main():
     print("</div>")
 
 
-    util.print_closing()
+    util.print_closing(num_numerical_columns=num_numerical_columns)
 
 def normalized_dict(data, project_title):
     result = {}
@@ -155,10 +160,10 @@ def normalized_dict(data, project_title):
 
 
 def abbreviated(string):
-    if len(string) < 100:
+    if len(string) < 30:
         return string
     else:
-        return string[:100] + "…"
+        return string[:30] + "…"
 
 
 if __name__ == "__main__":

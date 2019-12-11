@@ -5,81 +5,22 @@ def print_head():
     <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-      <link rel="stylesheet" href="/tablesorter.css">
-      <script src="/jquery.min.js"></script>
-      <script src="/jquery.tablesorter.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+      <link href="https://cdn.datatables.net/fixedcolumns/3.2.2/css/fixedColumns.dataTables.min.css" rel="stylesheet"/>
+      <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+      <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/fixedcolumns/3.3.0/js/dataTables.fixedColumns.min.js"></script>
       <style type="text/css">
         body { }
         a { text-decoration: none; }
         a:hover, a:active { text-decoration: underline; }
-        /*
-         Freezing the first column and row, from https://stackoverflow.com/a/50516259/3422337
-        */
-        div.container {
-          max-width: 100%;
-          max-height: 500px;
-          overflow: scroll;
-        }
-        thead th {
-          position: -webkit-sticky; /* for Safari */
-          position: sticky;
-          top: 0;
-        }
-        tfoot th {
-          position: -webkit-sticky; /* for Safari */
-          position: sticky;
-          bottom: 0;
-        }
-        tfoot th:first-child {
-          left: 0;
-          z-index: 1;
-        }
-        thead th:first-child {
-          left: 0;
-          z-index: 1;
-        }
-        tbody th {
-          position: -webkit-sticky; /* for Safari */
-          position: sticky;
-          left: 0;
-        }
-        thead th:nth-child(2) {
-          left: 224px;
-          z-index: 1;
-        }
-        tbody td:nth-child(2) {
-          position: sticky;
-          left: 224px;
-          background-color: #f9f9f9;
-        }
-        tfoot th:nth-child(2) {
-          left: 224px;
-          z-index: 1;
-        }
 
-        thead tr th:first-child,
-        tbody tr td:first-child,
-        tbody tr th:first-child
-        {
-          width: 200px;
-          min-width: 200px;
-          max-width: 200px;
-          word-break: break-all;
-        }
-
-        table {
-          font-size: 12px;
-          background-color: #f9f9f9;
-          border-collapse: collapse;
-        }
-        table th {
-          background-color: #f2f2f2;
-          border: 1px solid #aaaaaa;
-          padding: 5px 10px;
-        }
-        table td {
-          border: 1px solid #aaaaaa;
-          padding: 5px 10px;
+        /* Ensure that the table scrolls;
+           see https://datatables.net/extensions/fixedcolumns/examples/initialisation/two_columns.html */
+        th, td { white-space: nowrap; }
+        div.dataTables_wrapper {
+            width: 1100px;
+            margin: 0 auto;
         }
       </style>
       <title>Vipul’s Empire</title>
@@ -87,14 +28,28 @@ def print_head():
     <body>
     ''')
 
-def print_closing():
+def print_closing(num_numerical_columns=None):
     print('''
-        <script>
-        $(function(){
-            $("table").tablesorter({
-                sortInitialOrder: "desc"
-            });
-          });
+    <script>
+        $(document).ready(function() {
+            var table = $('table').DataTable( {
+                scrollY:        "400px",
+                scrollX:        true,
+                scrollCollapse: true,
+                paging:         false,''')
+    if num_numerical_columns:
+        print('''                "order": [[0, 'asc'], ''' +
+              ", ".join("[" + str(i+1) + ", 'desc']" for i in range(num_numerical_columns)) +
+              "],")
+    print('''                fixedHeader: {
+                    header: true,
+                    footer: true
+                },
+                fixedColumns:   {
+                    leftColumns: 2
+                }
+            } );
+        } );
     </script>
     </body>
     </html>
