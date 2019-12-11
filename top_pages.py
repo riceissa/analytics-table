@@ -78,22 +78,16 @@ def main():
                 actually was the most viewed page for some month. Such a
                 page would not be shown in the table.)</p>""")
 
-    # Track the number of numerical columns in the table, so that we can tell
-    # DataTables which columns should be sorted in descending order
-    num_numerical_columns = 0
-
     print('''<div class="container">''')
     print('<table class="stripe row-border" cellspacing="0" width="100%">')
     print("<thead>")
     print("  <tr>")
     print("  <th>Pagepath</th>")
     print("  <th>Total</th>")
-    num_numerical_columns += 1
     for year, month in all_months:
         print("  <th>")
         print(datetime.date(year, month, 1).strftime("%B %Y"))
         print("  </th>")
-        num_numerical_columns += 1
     print("  </tr>")
     print("</thead>")
     print("<tbody>")
@@ -140,7 +134,7 @@ def main():
     print("</div>")
 
 
-    util.print_closing(num_numerical_columns=num_numerical_columns)
+    util.print_closing()
 
 def normalized_dict(data, project_title):
     result = {}

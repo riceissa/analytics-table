@@ -28,7 +28,7 @@ def print_head():
     <body>
     ''')
 
-def print_closing(num_numerical_columns=None):
+def print_closing():
     print('''
     <script>
         $(document).ready(function() {
@@ -36,12 +36,8 @@ def print_closing(num_numerical_columns=None):
                 scrollY:        "400px",
                 scrollX:        true,
                 scrollCollapse: true,
-                paging:         false,''')
-    if num_numerical_columns:
-        print('''                "order": [[0, 'asc'], ''' +
-              ", ".join("[" + str(i+1) + ", 'desc']" for i in range(num_numerical_columns)) +
-              "],")
-    print('''                fixedHeader: {
+                paging:         false,
+                fixedHeader: {
                     header: true,
                     footer: true
                 },
