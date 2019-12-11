@@ -63,7 +63,20 @@ def main():
             last_date = start_date
 
         pageviews = pageviews_for_project(analytics, view_id, "path_pageviews", last_date)
-        records = [(project_title, date_string, pagepath, views) for date_string, pagepath, views in pageviews]
+        records_ = [(project_title, date_string, pagepath, views) for date_string, pagepath, views in pageviews]
+        records = []
+        for record in records_:
+            (project_title, date_string, pagepath, views) = record
+            # In order to be able to use pagepath as part of the "unique key"
+            # in MySQL, we need to limit its varchar length. But if we do that,
+            # sometimes there are pagepaths that are too long. These almost
+            # always have low pageviews and are accidental/joke paths, so not
+            # recording them in the database should cause no problems.
+            if len(pagepath) > 500:
+                print("Too long pagepath: %s, %s, %s" % (project_title, date_string, pagepath),
+                      file=sys.stderr)
+            else:
+                records.append(record)
 
         insert_query = """insert into path_pageviews(project_title, pageviews_date, pagepath, pageviews)
                           values (%s, %s, %s, %s)"""
