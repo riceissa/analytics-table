@@ -91,14 +91,30 @@ def main():
     print("  </tr>")
     print("</thead>")
     print("<tbody>")
-    total_pageviews = {}
+    total_pageviews_by_pagepath = {}
+    total_pageviews_by_month = {}
+    grand_total = 0
     for (y, m, pp) in data_dict:
-        total_pageviews[pp] = total_pageviews.get(pp, 0) + data_dict[(y, m, pp)]
-    for pagepath, total_for_pagepath in sorted(total_pageviews.items(), key=lambda x: x[1], reverse=True)[:limit_pagepaths]:
+        total_pageviews_by_pagepath[pp] = (total_pageviews_by_pagepath.get(pp, 0) +
+                                           data_dict[(y, m, pp)])
+        total_pageviews_by_month[(y, m)] = (total_pageviews_by_month.get((y, m), 0) +
+                                            data_dict[(y, m, pp)])
+        grand_total += data_dict[(y, m, pp)]
+
+    # Unlike the above total counts, these count only pageviews on pagepaths
+    # that are in the top N pagepaths, where N=limit_pagepaths. We will find
+    # them in the loop below, where we restrict using the slice [:limit_pagepaths].
+    total_of_shown = 0
+    total_by_month_of_shown = {}
+
+    for pagepath, total_for_pagepath in sorted(total_pageviews_by_pagepath.items(),
+                                               key=lambda x: x[1],  # sort by pageviews
+                                               reverse=True)[:limit_pagepaths]:
+        total_of_shown += total_for_pagepath
         print("<tr>")
         project_url = project_title_to_url[project_title]
         # pagepath already begins with a slash, so remove it from the project
-        # url if it exists
+        # URL if it exists
         if project_url.endswith('/'):
             project_url = project_url[:-1]
         print('''<th><a href="%s%s" title="%s">%s</a></th>''' %
@@ -108,6 +124,8 @@ def main():
             y, m = month
             if (y, m, pagepath) in data_dict:
                 print('''<td style="text-align: right;">{:,}</td>'''.format(data_dict[(y, m, pagepath)]))
+                total_by_month_of_shown[(y, m)] = (total_by_month_of_shown.get((y, m), 0) +
+                                                   data_dict[(y, m, pagepath)])
             else:
                 print('''<td style="text-align: right;">0</td>''')
         print("</tr>")
@@ -115,19 +133,15 @@ def main():
     print("<tfoot>")
     print("<tr>")
     print("<th>Total of shown rows</th>")
-    grand_total = 0  # FIXME
-    print('''<th style="text-align: right;">{:,}</th>'''.format(grand_total))
+    print('''<th style="text-align: right;">{:,}</th>'''.format(total_of_shown))
     for month in all_months:
-        total_for_month = sum(data_dict[(y, m, pp)] for y, m, pp in data_dict if (y, m) == month)
-        print('''<th style="text-align: right;">{:,}</th>'''.format(total_for_month))
+        print('''<th style="text-align: right;">{:,}</th>'''.format(total_by_month_of_shown[month]))
     print("</tr>")
     print("<tr>")
     print("<th>Total</th>")
-    grand_total = 0  # FIXME
     print('''<th style="text-align: right;">{:,}</th>'''.format(grand_total))
     for month in all_months:
-        total_for_month = sum(data_dict[(y, m, pp)] for y, m, pp in data_dict if (y, m) == month)
-        print('''<th style="text-align: right;">{:,}</th>'''.format(total_for_month))
+        print('''<th style="text-align: right;">{:,}</th>'''.format(total_pageviews_by_month[month]))
     print("</tr>")
     print("</tfoot>")
     print("</table>")
@@ -137,6 +151,8 @@ def main():
     util.print_closing()
 
 def normalized_dict(data, project_title):
+    """Returns a dictionary (year, month, pagepath) -> pageviews where pagepath
+    is normalized. Normalization rules can depend on the project title."""
     result = {}
     fbclid_pat = re.compile(r'\?fbclid=[a-zA-Z0-9_-]+$')
     printable_pat = re.compile(r'\?printable=')
