@@ -40,7 +40,7 @@ def print_closing():
                 scrollX:        true,
                 scrollCollapse: true,
                 paging:         false,
-                order:          false,
+                order:          [],
                 fixedHeader: {
                     header: true,
                     footer: true
