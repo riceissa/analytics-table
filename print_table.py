@@ -116,7 +116,7 @@ def print_table(projects, pageviews_data, total_pageviews):
             if month in data:
                 print('''<td style="text-align: right;">{:,}</td>'''.format(data[month]))
             else:
-                print('''<td style="text-align: right;">n.a.</td>''')
+                print('''<td style="text-align: right;">0</td>''')
         print("</tr>")
     print("<tfoot>")
     print("<tr>")
