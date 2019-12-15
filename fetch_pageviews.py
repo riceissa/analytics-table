@@ -74,13 +74,17 @@ def main():
         # https://support.google.com/analytics/answer/1009671?hl=en for more
         # about "(other)".
         partial_progress_chunk_size = 300
+
+        # Google Analytics records pageviews for partial days, so make sure that we
+        # only get fully completed days by setting the upper limit to four days
+        # ago (to deal with potential timezone differences).
         upper_limit_date = datetime.date.today() - datetime.timedelta(days=4)
 
         lo = last_date
-        hi = last_date + datetime.timedelta(days=partial_progress_chunk_size)
+        hi = min(lo + datetime.timedelta(days=partial_progress_chunk_size),
+                 upper_limit_date)
 
-        while hi <= upper_limit_date:
-
+        while True:
             pageviews = pageviews_for_project(analytics, view_id,
                                               "path_pageviews", lo, hi)
             records_ = [(project_title, date_string, pagepath, views)
@@ -108,8 +112,12 @@ def main():
             cursor.executemany(insert_query, records)
             cnx.commit()
 
+            if hi == upper_limit_date:
+                break
+
             lo = hi + datetime.timedelta(days=1)
-            hi = lo + datetime.timedelta(days=partial_progress_chunk_size)
+            hi = min(lo + datetime.timedelta(days=partial_progress_chunk_size),
+                     upper_limit_date)
 
 
 def initialize_analyticsreporting():
@@ -209,15 +217,9 @@ def extracted_pageviews(response):
     return result
 
 
-def pageviews_for_project(analytics, view_id, table, start_date):
+def pageviews_for_project(analytics, view_id, table, start_date, end_date):
     result = []
-
-    # Google Analytics records pageviews for partial days, so make sure that we
-    # only get fully completed days by setting the upper limit to four days
-    # ago (to deal with potential timezone differences).
-    upper_limit_date = datetime.date.today() - datetime.timedelta(days=4)
-
-    if start_date > upper_limit_date:
+    if start_date > end_date:
         # This means we already have all the most recent data, so don't query
         return result
 
@@ -225,7 +227,7 @@ def pageviews_for_project(analytics, view_id, table, start_date):
     while True:
         time.sleep(1)
         response = get_report(analytics, view_id, table, start_date.strftime("%Y-%m-%d"),
-                              upper_limit_date.strftime("%Y-%m-%d"), page_token)
+                              end_date.strftime("%Y-%m-%d"), page_token)
         result.extend(extracted_pageviews(response))
         if "nextPageToken" in response["reports"][0]:
             page_token = response["reports"][0]["nextPageToken"]
