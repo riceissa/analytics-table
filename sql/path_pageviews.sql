@@ -7,7 +7,7 @@ create table path_pageviews(
 
     # Use a binary collation to distinguish upper and lower cases
     # https://stackoverflow.com/a/6448861/3422337
-    pagepath varchar(500) character set utf8 collate utf8_bin not null,
+    pagepath varchar(500) character set utf8mb4 collate utf8mb4_bin not null,
 
     pageviews int(8) not null,
 
