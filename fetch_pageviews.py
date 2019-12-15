@@ -6,6 +6,8 @@
 import datetime
 import sys
 import mysql.connector
+import time
+import pdb
 
 import login
 
@@ -160,6 +162,7 @@ def extracted_pageviews(response):
             assert len(dateRangeValues) == 1, dateRangeValues
 
             dim = dimensions[0]
+
             assert len(dim) == 8, dim
 
             date_string = dim[0:4] + "-" + dim[4:6] + "-" + dim[6:]
@@ -194,6 +197,7 @@ def pageviews_for_project(analytics, view_id, table, start_date):
 
     page_token = None
     while True:
+        time.sleep(1)
         response = get_report(analytics, view_id, table, start_date.strftime("%Y-%m-%d"),
                               upper_limit_date.strftime("%Y-%m-%d"), page_token)
         result.extend(extracted_pageviews(response))
