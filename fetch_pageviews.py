@@ -85,6 +85,9 @@ def main():
                  upper_limit_date)
 
         while True:
+            print("For %s (%s), querying and inserting from %s to %s (inclusive)" % (
+                        project_title, view_id, lo.strftime("%Y-%m-%d"),
+                        hi.strftime("%Y-%m-%d")), file=sys.stderr)
             pageviews = pageviews_for_project(analytics, view_id,
                                               "path_pageviews", lo, hi)
             records_ = [(project_title, date_string, pagepath, views)
