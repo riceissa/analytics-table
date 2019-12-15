@@ -11,7 +11,7 @@ create table projects(
     # The date when Google Analytics was added for this site.
     start_date date
 
-) ENGINE=InnoDB AUTO_INCREMENT=15239276 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into projects(project_title, url, view_id, start_date) values
     ('Cause Prioritization Wiki', 'https://causeprioritization.org/', '103832319', '2014-11-01')

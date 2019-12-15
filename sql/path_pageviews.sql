@@ -12,4 +12,4 @@ create table path_pageviews(
     pageviews int(8) not null,
 
     unique key `title_and_date_and_path` (`project_title`, `pageviews_date`, `pagepath`)
-) ENGINE=InnoDB AUTO_INCREMENT=15239276 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
