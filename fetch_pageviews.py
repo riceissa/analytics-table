@@ -80,7 +80,7 @@ def main():
         # have no effect. See
         # https://support.google.com/analytics/answer/1009671?hl=en for more
         # about "(other)".
-        partial_progress_chunk_size = 300
+        partial_progress_chunk_size = 50
 
         lo = last_date
         hi = min(lo + datetime.timedelta(days=partial_progress_chunk_size),
