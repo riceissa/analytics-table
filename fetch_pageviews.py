@@ -28,6 +28,12 @@ def main():
 
     cursor.execute("""select project_title, view_id, start_date from projects""")
     projects = cursor.fetchall()
+
+    # Google Analytics records pageviews for partial days, so make sure that we
+    # only get fully completed days by setting the upper limit to four days
+    # ago (to deal with potential timezone differences).
+    upper_limit_date = datetime.date.today() - datetime.timedelta(days=4)
+
     # Fetch data into the pageviews table.
     for project in projects:
         project_title, view_id, start_date = project
@@ -42,7 +48,8 @@ def main():
             # very beginning
             last_date = start_date
 
-        pageviews = pageviews_for_project(analytics, view_id, "pageviews", last_date)
+        pageviews = pageviews_for_project(analytics, view_id, "pageviews",
+                                          last_date, upper_limit_date)
         records = [(project_title, date_string, views) for date_string, views in pageviews]
 
         insert_query = """insert into pageviews(project_title, pageviews_date, pageviews)
@@ -74,11 +81,6 @@ def main():
         # https://support.google.com/analytics/answer/1009671?hl=en for more
         # about "(other)".
         partial_progress_chunk_size = 300
-
-        # Google Analytics records pageviews for partial days, so make sure that we
-        # only get fully completed days by setting the upper limit to four days
-        # ago (to deal with potential timezone differences).
-        upper_limit_date = datetime.date.today() - datetime.timedelta(days=4)
 
         lo = last_date
         hi = min(lo + datetime.timedelta(days=partial_progress_chunk_size),
