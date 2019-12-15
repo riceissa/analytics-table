@@ -7,7 +7,6 @@ import datetime
 import sys
 import mysql.connector
 import time
-import pdb
 
 import login
 
