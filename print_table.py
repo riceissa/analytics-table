@@ -9,6 +9,7 @@ import datetime
 import base64
 import io
 import sys
+import urllib.parse
 
 import login
 import util
@@ -109,7 +110,7 @@ def print_table(projects, pageviews_data, total_pageviews):
         data = {(year, month): views for title, views, year, month in pageviews_data
                 if title == project_title}
         print("<tr>")
-        print('''<td><a href="%s">%s</a></td>''' % (project_title_to_url[project_title],
+        print('''<td><a href="%s">%s</a></td>''' % ('''/top-pages.php?project_title=%s''' % urllib.parse.quote(project_title),
                                                     project_title))
         print('''<td style="text-align: right;">{:,}</td>'''.format(sum(data.values())))
         for month in all_months:
