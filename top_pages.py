@@ -9,6 +9,19 @@ import login
 import util
 
 
+def h_index(lst):
+    lst = sorted(lst, reverse=True)
+    i = 0
+    while i < len(lst):
+        new_i = i + 1
+        # Access list at i rather than new_i because Python lists are 0-indexed
+        if lst[i] >= new_i:
+            i = new_i
+        else:
+            break
+    return i
+
+
 def main():
     cnx = mysql.connector.connect(user=login.USER, database=login.DATABASE,
                                   password=login.PASSWORD)
@@ -91,12 +104,15 @@ def main():
     print("<tbody>")
     total_pageviews_by_pagepath = {}
     total_pageviews_by_month = {}
+    pageviews_list_by_month = {}
     grand_total = 0
     for (y, m, pp) in data_dict:
         total_pageviews_by_pagepath[pp] = (total_pageviews_by_pagepath.get(pp, 0) +
                                            data_dict[(y, m, pp)])
         total_pageviews_by_month[(y, m)] = (total_pageviews_by_month.get((y, m), 0) +
                                             data_dict[(y, m, pp)])
+        pageviews_list_by_month[(y, m)] = (pageviews_list_by_month.get((y, m), []) +
+                                           [data_dict[(y, m, pp)]])
         grand_total += data_dict[(y, m, pp)]
 
     # Unlike the above total counts, these count only pageviews on pagepaths
@@ -140,6 +156,12 @@ def main():
     print('''<th style="text-align: right;">{:,}</th>'''.format(grand_total))
     for month in all_months:
         print('''<th style="text-align: right;">{:,}</th>'''.format(total_pageviews_by_month[month]))
+    print("</tr>")
+    print("<tr>")
+    print("<th>h-index</th>")
+    print('''<th style="text-align: right;">n.a.</th>''')
+    for month in all_months:
+        print('''<th style="text-align: right;">{:,}</th>'''.format(h_index(pageviews_list_by_month[month])))
     print("</tr>")
     print("</tfoot>")
     print("</table>")
