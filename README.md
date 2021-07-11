@@ -95,6 +95,7 @@ mysql -e "create database analyticstable"
 # Create tables
 mysql analyticstable < sql/projects.sql
 mysql analyticstable < sql/pageviews.sql
+mysql analyticstable < sql/path_pageviews.sql
 ```
 
 ### Create login file
