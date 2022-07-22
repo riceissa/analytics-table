@@ -114,7 +114,7 @@ PASSWORD = ""
 Run:
 
 ```bash
-sudo pip install --upgrade google-api-python-client mysql-connector-python
+sudo pip install --upgrade google-api-python-client mysql-connector-python oauth2client
 ```
 
 ([source](https://developers.google.com/analytics/devguides/reporting/core/v4/quickstart/service-py#2_install_the_client_library))
