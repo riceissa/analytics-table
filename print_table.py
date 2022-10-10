@@ -110,8 +110,11 @@ def print_table(projects, pageviews_data, total_pageviews):
         data = {(year, month): views for title, views, year, month in pageviews_data
                 if title == project_title}
         print("<tr>")
-        print('''<td><a href="%s">%s</a></td>''' % ('''/top-pages.php?project_title=%s''' % urllib.parse.quote(project_title),
-                                                    project_title))
+        if project_title == 'Groupprops subwiki':
+            print('''<td>%s</td>''' % (project_title))
+        else:
+            print('''<td><a href="%s">%s</a></td>''' % ('''/top-pages.php?project_title=%s''' % urllib.parse.quote(project_title),
+                                                        project_title))
         print('''<td style="text-align: right;">{:,}</td>'''.format(sum(data.values())))
         for month in all_months:
             if month in data:
