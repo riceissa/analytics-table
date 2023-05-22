@@ -192,7 +192,7 @@ probably get away with using the system pip.
 pip install virtualenv
 virtualenv venv
 source venv/bin/activate
-venv/bin/pip install google-analytics-data
+pip install google-analytics-data
 ```
 
 ### Enable the new API in your Google Cloud Project
