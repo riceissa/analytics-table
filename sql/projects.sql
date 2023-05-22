@@ -8,15 +8,20 @@ create table projects(
     # The Google Analytics ViewID for this site.
     view_id varchar(50) not null,
 
+    # The Google Analytics 4 property ID for this site.
+    property_id varchar(50),
+
     # The date when Google Analytics was added for this site.
-    start_date date
+    start_date date,
+
+    # The date when Google Analytics 4 was added for this site.
+    ga4_start_date date
 
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into projects(project_title, url, view_id, start_date) values
     ('Cause Prioritization Wiki', 'https://causeprioritization.org/', '103832319', '2014-11-01')
     ,('AI Watch','https://aiwatch.issarice.com/', '163268990', '2017-10-01')
-    ,('Org Watch', 'https://orgwatch.issarice.com/', '177871658', '2018-06-17')
     ,('Timelines wiki', 'https://timelines.issarice.com/', '142661718', '2017-03-01')
     ,('BART','https://bart.vipulnaik.com/','151101984','2017-05-21')
     ,('Calculus subwiki','https://calculus.subwiki.org/','50145310','2011-09-05')
@@ -46,4 +51,8 @@ insert into projects(project_title, url, view_id, start_date) values
     ,('Computing data project', 'https://computingdata.vipulnaik.com/', '194324723', '2019-04-28')
     ,('Diet Watch', 'https://dietwatch.vipulnaik.com/', '196583289', '2019-06-08')
     ,('Issawiki', 'https://wiki.issarice.com/', '218682322', '2020-05-15')
+;
+
+insert into projects(project_title, url, view_id, property_id, start_date, ga4_start_date) values
+    ('Org Watch', 'https://orgwatch.issarice.com/', '177871658', '315080229', '2018-06-17', '2022-05-14')
 ;
