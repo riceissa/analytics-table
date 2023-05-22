@@ -25,7 +25,7 @@ def main():
                                   password=login.PASSWORD)
     cursor = cnx.cursor()
 
-    cursor.execute("""select project_title, view_id, start_date from projects""")
+    cursor.execute("""select project_title, view_id, start_date from projects where property_id is null""")
     projects = cursor.fetchall()
 
     # Google Analytics records pageviews for partial days, so make sure that we
