@@ -231,11 +231,13 @@ def pageviews_for_project(client, property_id, table, start_date, end_date):
         result.extend(extracted_pageviews(response))
         offset += LIMIT
         if offset >= response.row_count:
-            # I *think* >= is the right comparison here rather than > because
+            # The comparison >= is the correct one here (not >) because
             # the first row is considered row 0 according to
             # https://developers.google.com/analytics/devguides/reporting/data/v1/rest/v1beta/properties/runReport#body.request_body.FIELDS.offset
-            # So if there are five rows, they will be 0,1,2,3,4, and if offset
-            # is >=5 then there will be no more rows to fetch.
+            # So e.g. if there are five rows, they will be rows 0,1,2,3,4, and
+            # if offset is >=5 then there will be no more rows to fetch. (I
+            # also empirically checked that this is the actual behavior of the
+            # API.)
             break
     return result
 
