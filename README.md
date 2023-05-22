@@ -6,7 +6,7 @@ Live at https://analytics.vipulnaik.com/
 
 - [Project layout](#project-layout)
 - [Database layout](#database-layout)
-- [Setting up Google Analytics](#setting-up-google-analytics)
+- [Setting up Google Analytics (Universal Analytics aka pre-2023)](#setting-up-google-analytics--universal-analytics-aka-pre-2023-)
   * [Set up a Google developers project and a service account](#set-up-a-google-developers-project-and-a-service-account)
   * [How to give access to the script](#how-to-give-access-to-the-script)
   * [How to find the view ID](#how-to-find-the-view-id)
@@ -18,6 +18,12 @@ Live at https://analytics.vipulnaik.com/
   * [Run the data fetching script](#run-the-data-fetching-script)
   * [Fetch auxiliary files](#fetch-auxiliary-files)
   * [Serve the website](#serve-the-website)
+- [Migrating from Universal Analytics to Google Analytics 4](#migrating-from-universal-analytics-to-google-analytics-4)
+  * [Install the new Python client for GA4 Data API](#install-the-new-python-client-for-ga4-data-api)
+  * [Enable the new API in your Google Cloud Project](#enable-the-new-api-in-your-google-cloud-project)
+  * [Switch over each website to use GA4 instead of Universal Analytics](#switch-over-each-website-to-use-ga4-instead-of-universal-analytics)
+  * [For each new GA4 property, add the email of your Google Developers/Cloud Project so it can access the data](#for-each-new-ga4-property--add-the-email-of-your-google-developers-cloud-project-so-it-can-access-the-data)
+  * [Add the property ID and GA4 start date to projects.sql](#add-the-property-id-and-ga4-start-date-to-projectssql)
 - [See also](#see-also)
 
 ## Project layout
