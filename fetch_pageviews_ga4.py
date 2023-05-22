@@ -132,13 +132,6 @@ def main():
                      upper_limit_date)
 
 
-def last_day_of_month(year, month):
-    if month == 12:
-        return datetime.date(year + 1, 1, 1) - datetime.timedelta(days=1)
-    else:
-        return datetime.date(year, month + 1, 1) - datetime.timedelta(days=1)
-
-
 def get_report(client, property_id, table, start_date, end_date, offset=0):
     """Queries the Google Analytics 4 Data API v1."""
     print("Doing PropertyID=%s [%s, %s] (offset: %s)" % (
