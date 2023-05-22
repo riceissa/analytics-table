@@ -24,6 +24,7 @@ Live at https://analytics.vipulnaik.com/
   * [Switch over each website to use GA4 instead of Universal Analytics](#switch-over-each-website-to-use-ga4-instead-of-universal-analytics)
   * [For each new GA4 property, add the email of your Google Developers/Cloud Project so it can access the data](#for-each-new-ga4-property--add-the-email-of-your-google-developers-cloud-project-so-it-can-access-the-data)
   * [Add the property ID and GA4 start date to projects.sql](#add-the-property-id-and-ga4-start-date-to-projectssql)
+  * [Run the new fetching script](#run-the-new-fetching-script)
 - [See also](#see-also)
 
 ## Project layout
@@ -201,6 +202,8 @@ and click on the blue button that says "Enable the Google Analytics Data API v1"
 Select the project that you created in ["Set up a Google developers project and a service account"](#set-up-a-google-developers-project-and-a-service-account).
 If for some reason there is no existing project, you can maybe go to [here](https://developers.google.com/analytics/devguides/reporting/data/v1/quickstart-client-libraries#step_1_enable_the_api) and click the blue botton that says "Enable the Google Analytics Data API v1" to create a new project. (Note: for me the button did not work in Firefox and I had to use Chrome.)
 
+You may need to download a new key JSON file (when I was testing this, I created a new project and it gave me a key JSON file).
+
 ### Switch over each website to use GA4 instead of Universal Analytics
 
 (instructions given separately; TODO maybe add them here)
@@ -222,6 +225,27 @@ so that the new columns `property_id` and `ga4_start_date` have values.  To find
 property ID, go to GA4 and navigate to Admin (leftmost sidebar, way at the bottom) ->
 Property column -> Property Settings -> Find the "PROPERTY ID" on the right
 side of the screen, you can click the copy button to copy the ID.
+
+### Run the new fetching script
+
+If everything is set up correctly, you should now be able to run the GA4 data
+fetching script:
+
+```bash
+./fetch_pageviews_ga4.py key.json
+```
+
+If it works, try running it again:
+
+```bash
+./fetch_pageviews_ga4.py key.json
+```
+
+The new script works exactly like the old one.
+It checks the most recently stored date for each project, and only
+queries for more recent data, so the second run should be much quicker. (If a
+website got zero pageviews on the most recent days, it might try to query a
+small number of dates.)
 
 ## See also
 
