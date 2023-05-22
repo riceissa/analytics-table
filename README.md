@@ -41,7 +41,7 @@ The database has two tables:
 - `pageviews`: this stores the pageviews. The data for this is inserted by
   `fetch_pageviews.py`.
 
-## Setting up Google Analytics
+## Setting up Google Analytics (Universal Analytics aka pre-2023)
 
 There are several parts to this:
 
@@ -173,6 +173,41 @@ php -S localhost:8000
 
 If you're trying to serve the website over the web, edit your nginx/apache
 config; make sure the root directory is `access-portal/`.
+
+## Migrating from Universal Analytics to Google Analytics 4
+
+### Install the new Python client for GA4 Data API
+
+Issa decided to use virtualenv following the official instructions, but you can
+probably get away with using the system pip.
+
+```bash
+pip install virtualenv
+virtualenv venv
+source venv/bin/activate
+venv/bin/pip install google-analytics-data
+```
+
+### Enable the new API in your Google Cloud Project
+
+Go to [this page](https://developers.google.com/analytics/devguides/migration/api/reporting-ua-to-ga4#enable_the_api)
+and click on the blue button that says "Enable the Google Analytics Data API v1".
+Select the project that you created in ["Set up a Google developers project and a service account"](#set-up-a-google-developers-project-and-a-service-account).
+If for some reason there is no existing project, you can maybe go to [here](https://developers.google.com/analytics/devguides/reporting/data/v1/quickstart-client-libraries#step_1_enable_the_api) and click the blue botton that says "Enable the Google Analytics Data API v1" to create a new project. (Note: for me the button did not work in Firefox and I had to use Chrome.)
+
+### Switch over each website to use GA4 instead of Universal Analytics
+
+(instructions given separately; TODO maybe add them here)
+
+### For each new GA4 property, add the email of your Google Developers/Cloud Project so it can access the data
+
+I'm not sure if this step is necessary. But in GA4 you can go to Admin (leftmost sidebar, way at the bottom) ->
+Property column ->
+Property Access Management ->
+Plus sign (top right corner) ->
+Add users ->
+Enter the email address, and make sure the "Viewer" role is selected ("Data restrictions" don't matter I think) ->
+Add (top right corner).
 
 ## See also
 
