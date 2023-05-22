@@ -209,6 +209,14 @@ Add users ->
 Enter the email address, and make sure the "Viewer" role is selected ("Data restrictions" don't matter I think) ->
 Add (top right corner).
 
+### Add the property ID and GA4 start date to projects.sql
+
+Go to https://github.com/riceissa/analytics-table/blob/master/sql/projects.sql and edit the file
+so that the new columns `property_id` and `ga4_start_date` have values.  To find the
+property ID, go to GA4 and navigate to Admin (leftmost sidebar, way at the bottom) ->
+Property column -> Property Settings -> Find the "PROPERTY ID" on the right
+side of the screen, you can click the copy button to copy the ID.
+
 ## See also
 
 - https://github.com/riceissa/timelines-wiki-main-page-table
