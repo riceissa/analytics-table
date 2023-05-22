@@ -2,6 +2,24 @@
 
 Live at https://analytics.vipulnaik.com/
 
+## Table of contents
+
+- [Project layout](#project-layout)
+- [Database layout](#database-layout)
+- [Setting up Google Analytics](#setting-up-google-analytics)
+  * [Set up a Google developers project and a service account](#set-up-a-google-developers-project-and-a-service-account)
+  * [How to give access to the script](#how-to-give-access-to-the-script)
+  * [How to find the view ID](#how-to-find-the-view-id)
+  * [Change Google Analytics quota](#change-google-analytics-quota)
+- [Setting up the portal](#setting-up-the-portal)
+  * [Set up the database](#set-up-the-database)
+  * [Create login file](#create-login-file)
+  * [Install Google Analytics API library and MySQL connector](#install-google-analytics-api-library-and-mysql-connector)
+  * [Run the data fetching script](#run-the-data-fetching-script)
+  * [Fetch auxiliary files](#fetch-auxiliary-files)
+  * [Serve the website](#serve-the-website)
+- [See also](#see-also)
+
 ## Project layout
 
 - `fetch_pageviews.py`: this script queries Google Analytics using its API, and
