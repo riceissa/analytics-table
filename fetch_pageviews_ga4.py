@@ -132,21 +132,6 @@ def main():
                      upper_limit_date)
 
 
-def initialize_analyticsreporting():
-    """Initializes an Analytics Reporting API V4 service object.
-
-    Returns:
-      An authorized Analytics Reporting API V4 service object.
-    """
-    credentials = ServiceAccountCredentials.from_json_keyfile_name(
-        KEY_FILE_LOCATION, SCOPES)
-
-    # Build the service object.
-    analytics = build('analyticsreporting', 'v4', credentials=credentials)
-
-    return analytics
-
-
 def last_day_of_month(year, month):
     if month == 12:
         return datetime.date(year + 1, 1, 1) - datetime.timedelta(days=1)
