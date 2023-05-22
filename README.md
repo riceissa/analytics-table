@@ -2,6 +2,30 @@
 
 Live at https://analytics.vipulnaik.com/
 
+## Table of contents
+
+- [Project layout](#project-layout)
+- [Database layout](#database-layout)
+- [Setting up Google Analytics (Universal Analytics aka pre-2023)](#setting-up-google-analytics--universal-analytics-aka-pre-2023-)
+  * [Set up a Google developers project and a service account](#set-up-a-google-developers-project-and-a-service-account)
+  * [How to give access to the script](#how-to-give-access-to-the-script)
+  * [How to find the view ID](#how-to-find-the-view-id)
+  * [Change Google Analytics quota](#change-google-analytics-quota)
+- [Setting up the portal](#setting-up-the-portal)
+  * [Set up the database](#set-up-the-database)
+  * [Create login file](#create-login-file)
+  * [Install Google Analytics API library and MySQL connector](#install-google-analytics-api-library-and-mysql-connector)
+  * [Run the data fetching script](#run-the-data-fetching-script)
+  * [Fetch auxiliary files](#fetch-auxiliary-files)
+  * [Serve the website](#serve-the-website)
+- [Migrating from Universal Analytics to Google Analytics 4](#migrating-from-universal-analytics-to-google-analytics-4)
+  * [Install the new Python client for GA4 Data API](#install-the-new-python-client-for-ga4-data-api)
+  * [Enable the new API in your Google Cloud Project](#enable-the-new-api-in-your-google-cloud-project)
+  * [Switch over each website to use GA4 instead of Universal Analytics](#switch-over-each-website-to-use-ga4-instead-of-universal-analytics)
+  * [For each new GA4 property, add the email of your Google Developers/Cloud Project so it can access the data](#for-each-new-ga4-property--add-the-email-of-your-google-developers-cloud-project-so-it-can-access-the-data)
+  * [Add the property ID and GA4 start date to projects.sql](#add-the-property-id-and-ga4-start-date-to-projectssql)
+- [See also](#see-also)
+
 ## Project layout
 
 - `fetch_pageviews.py`: this script queries Google Analytics using its API, and
@@ -23,7 +47,7 @@ The database has two tables:
 - `pageviews`: this stores the pageviews. The data for this is inserted by
   `fetch_pageviews.py`.
 
-## Setting up Google Analytics
+## Setting up Google Analytics (Universal Analytics aka pre-2023)
 
 There are several parts to this:
 
@@ -155,6 +179,49 @@ php -S localhost:8000
 
 If you're trying to serve the website over the web, edit your nginx/apache
 config; make sure the root directory is `access-portal/`.
+
+## Migrating from Universal Analytics to Google Analytics 4
+
+### Install the new Python client for GA4 Data API
+
+Issa decided to use virtualenv following the official instructions, but you can
+probably get away with using the system pip.
+
+```bash
+pip install virtualenv
+virtualenv venv
+source venv/bin/activate
+venv/bin/pip install google-analytics-data
+```
+
+### Enable the new API in your Google Cloud Project
+
+Go to [this page](https://developers.google.com/analytics/devguides/migration/api/reporting-ua-to-ga4#enable_the_api)
+and click on the blue button that says "Enable the Google Analytics Data API v1".
+Select the project that you created in ["Set up a Google developers project and a service account"](#set-up-a-google-developers-project-and-a-service-account).
+If for some reason there is no existing project, you can maybe go to [here](https://developers.google.com/analytics/devguides/reporting/data/v1/quickstart-client-libraries#step_1_enable_the_api) and click the blue botton that says "Enable the Google Analytics Data API v1" to create a new project. (Note: for me the button did not work in Firefox and I had to use Chrome.)
+
+### Switch over each website to use GA4 instead of Universal Analytics
+
+(instructions given separately; TODO maybe add them here)
+
+### For each new GA4 property, add the email of your Google Developers/Cloud Project so it can access the data
+
+I'm not sure if this step is necessary. But in GA4 you can go to Admin (leftmost sidebar, way at the bottom) ->
+Property column ->
+Property Access Management ->
+Plus sign (top right corner) ->
+Add users ->
+Enter the email address, and make sure the "Viewer" role is selected ("Data restrictions" don't matter I think) ->
+Add (top right corner).
+
+### Add the property ID and GA4 start date to projects.sql
+
+Go to https://github.com/riceissa/analytics-table/blob/master/sql/projects.sql and edit the file
+so that the new columns `property_id` and `ga4_start_date` have values.  To find the
+property ID, go to GA4 and navigate to Admin (leftmost sidebar, way at the bottom) ->
+Property column -> Property Settings -> Find the "PROPERTY ID" on the right
+side of the screen, you can click the copy button to copy the ID.
 
 ## See also
 
