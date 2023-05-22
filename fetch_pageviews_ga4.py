@@ -33,7 +33,7 @@ def main():
                                   password=login.PASSWORD)
     cursor = cnx.cursor()
 
-    cursor.execute("""select project_title, property_id, ga4_start_date from projects""")
+    cursor.execute("""select project_title, property_id, ga4_start_date from projects where property_id is not null""")
     projects = cursor.fetchall()
 
     # Google Analytics records pageviews for partial days, so make sure that we
@@ -53,7 +53,7 @@ def main():
         else:
             # This means we have no data for this project, so start from the
             # very beginning
-            last_date = start_date
+            last_date = ga4_start_date
 
         pageviews = pageviews_for_project(client, property_id, "pageviews",
                                           last_date, upper_limit_date)
@@ -66,7 +66,7 @@ def main():
 
     # Fetch data into the path_pageviews table.
     for project in projects:
-        project_title, view_id, start_date = project
+        project_title, view_id, ga4_start_date = project
         # Get the date up to which we have recorded pageviews data for this project
         cursor.execute("""select pageviews_date from path_pageviews where project_title = %s
                           order by pageviews_date desc limit 1""", (project_title,))
@@ -76,7 +76,7 @@ def main():
         else:
             # This means we have no data for this project, so start from the
             # very beginning
-            last_date = start_date
+            last_date = ga4_start_date
 
         # It seems that if we try to query-and-insert too many days' worth of
         # pageviews data at a time, Google Analytics starts putting "(other)"
@@ -97,7 +97,7 @@ def main():
             print("For %s (%s), querying and inserting from %s to %s (inclusive)" % (
                         project_title, view_id, lo.strftime("%Y-%m-%d"),
                         hi.strftime("%Y-%m-%d")), file=sys.stderr)
-            pageviews = pageviews_for_project(analytics, view_id,
+            pageviews = pageviews_for_project(client, view_id,
                                               "path_pageviews", lo, hi)
             records_ = [(project_title, date_string, pagepath, views)
                         for date_string, pagepath, views in pageviews]
@@ -156,8 +156,8 @@ def last_day_of_month(year, month):
 
 def get_report(client, property_id, table, start_date, end_date, offset=0):
     """Queries the Google Analytics 4 Data API v1."""
-    print("Doing PropertyID=%s [%s, %s] (page token: %s)" % (
-                property_id, start_date, end_date, page_token), file=sys.stderr)
+    print("Doing PropertyID=%s [%s, %s] (offset: %s)" % (
+                property_id, start_date, end_date, offset), file=sys.stderr)
 
     # For pagination, see
     # https://developers.google.com/analytics/devguides/reporting/data/v1/basics#pagination
@@ -230,7 +230,7 @@ def pageviews_for_project(client, property_id, table, start_date, end_date):
                               end_date.strftime("%Y-%m-%d"), offset)
         result.extend(extracted_pageviews(response))
         offset += LIMIT
-        if offset >= response.rowCount:
+        if offset >= response.row_count:
             # I *think* >= is the right comparison here rather than > because
             # the first row is considered row 0 according to
             # https://developers.google.com/analytics/devguides/reporting/data/v1/rest/v1beta/properties/runReport#body.request_body.FIELDS.offset
