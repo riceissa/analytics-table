@@ -29,7 +29,6 @@ insert into projects(project_title, url, view_id, start_date) values
     ,('Cognito Mentoring','https://cognitomentoring.org/','80278113','2013-12-21')
     ,('Commalg subwiki','https://commalg.subwiki.org/','11272366','2008-09-11')
     ,('Companal subwiki','https://companal.subwiki.org/','11272518','2008-09-11')
-    ,('Contract work for Vipul Naik','https://contractwork.vipulnaik.com/','137051483','2017-01-02')
     ,('Offene Grenzen','https://de.openborders.info/','88934216','2014-07-23')
     ,('Demography subwiki','https://demography.subwiki.org/','80270608','2014-01-26')
     ,('Devec subwiki','https://devec.subwiki.org/','162188096','2017-10-14')
@@ -49,10 +48,11 @@ insert into projects(project_title, url, view_id, start_date) values
     ,('Content Creation Wiki', 'https://contentcreation.issarice.com/', '156584158', '2017-07-01')
     ,('Issa Rice', 'https://issarice.com/', '104557782', '2015-05-01')
     ,('Computing data project', 'https://computingdata.vipulnaik.com/', '194324723', '2019-04-28')
-    ,('Diet Watch', 'https://dietwatch.vipulnaik.com/', '196583289', '2019-06-08')
     ,('Issawiki', 'https://wiki.issarice.com/', '218682322', '2020-05-15')
 ;
 
 insert into projects(project_title, url, view_id, property_id, start_date, ga4_start_date) values
     ('Org Watch', 'https://orgwatch.issarice.com/', '177871658', '315080229', '2018-06-17', '2022-05-14')
+    ,('Contract work for Vipul Naik','https://contractwork.vipulnaik.com/','137051483','361187926','2017-01-02','2023-06-17')
+    ,('Diet Watch', 'https://dietwatch.vipulnaik.com/', '196583289', '386782128', '2019-06-08', '2023-06-17')
 ;
