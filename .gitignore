@@ -4,3 +4,4 @@ access-portal/jquery.tablesorter.js
 access-portal/tablesorter.css
 login.py
 access-portal/logs
+__pycache__/
