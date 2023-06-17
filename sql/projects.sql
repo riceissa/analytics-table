@@ -23,7 +23,6 @@ insert into projects(project_title, url, view_id, start_date) values
     ('Cause Prioritization Wiki', 'https://causeprioritization.org/', '103832319', '2014-11-01')
     ,('AI Watch','https://aiwatch.issarice.com/', '163268990', '2017-10-01')
     ,('Timelines wiki', 'https://timelines.issarice.com/', '142661718', '2017-03-01')
-    ,('BART','https://bart.vipulnaik.com/','151101984','2017-05-21')
     ,('Calculus subwiki','https://calculus.subwiki.org/','50145310','2011-09-05')
     ,('Cellbio subwiki','https://cellbio.subwiki.org/','51788762','2011-10-20')
     ,('Cognito Mentoring','https://cognitomentoring.org/','80278113','2013-12-21')
@@ -47,12 +46,13 @@ insert into projects(project_title, url, view_id, start_date) values
     ,('Wikipedia Views','https://wikipediaviews.org/','88649657','2014-07-16')
     ,('Content Creation Wiki', 'https://contentcreation.issarice.com/', '156584158', '2017-07-01')
     ,('Issa Rice', 'https://issarice.com/', '104557782', '2015-05-01')
-    ,('Computing data project', 'https://computingdata.vipulnaik.com/', '194324723', '2019-04-28')
     ,('Issawiki', 'https://wiki.issarice.com/', '218682322', '2020-05-15')
 ;
 
 insert into projects(project_title, url, view_id, property_id, start_date, ga4_start_date) values
-    ('Org Watch', 'https://orgwatch.issarice.com/', '177871658', '315080229', '2018-06-17', '2022-05-14')
-    ,('Contract work for Vipul Naik','https://contractwork.vipulnaik.com/','137051483','361187926','2017-01-02','2023-06-17')
+    ('Contract work for Vipul Naik','https://contractwork.vipulnaik.com/','137051483','361187926','2017-01-02','2023-06-17')
+    ,('BART','https://bart.vipulnaik.com/','151101984','368442001','2017-05-21','2023-06-17')
+    ,('Org Watch', 'https://orgwatch.issarice.com/', '177871658', '315080229', '2018-06-17', '2022-05-14')
+    ,('Computing data project', 'https://computingdata.vipulnaik.com/', '194324723', '371137700', '2019-04-28', '2023-06-17')
     ,('Diet Watch', 'https://dietwatch.vipulnaik.com/', '196583289', '386782128', '2019-06-08', '2023-06-17')
 ;
