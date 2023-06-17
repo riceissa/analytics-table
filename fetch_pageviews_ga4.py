@@ -55,13 +55,19 @@ def main():
             # very beginning
             last_date = ga4_start_date
 
-        pageviews = pageviews_for_project(client, property_id, "pageviews",
+        try:
+            pageviews = pageviews_for_project(client, property_id, "pageviews",
                                           last_date, upper_limit_date)
-        records = [(project_title, date_string, views) for date_string, views in pageviews]
+            records = [(project_title, date_string, views) for date_string, views in pageviews]
 
-        insert_query = """insert into pageviews(project_title, pageviews_date, pageviews)
-                          values (%s, %s, %s)"""
-        cursor.executemany(insert_query, records)
+            insert_query = """insert into pageviews(project_title, pageviews_date, pageviews)
+                              values (%s, %s, %s)"""
+            cursor.executemany(insert_query, records)
+
+        except Exception as e:
+            print(f"!!! Error getting data for project: { project_title }")
+            print(repr(e))
+
         cnx.commit()
 
     # Fetch data into the path_pageviews table.
