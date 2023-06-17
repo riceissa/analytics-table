@@ -44,18 +44,18 @@ def main():
     # Fetch data into the pageviews table.
     for project in projects:
         project_title, property_id, ga4_start_date = project
-        # Get the date up to which we have recorded pageviews data for this project
-        cursor.execute("""select pageviews_date from pageviews where project_title = %s
-                          order by pageviews_date desc limit 1""", (project_title,))
-        lst = cursor.fetchall()
-        if lst:
-            last_date = lst[0][0] + datetime.timedelta(days=1)
-        else:
-            # This means we have no data for this project, so start from the
-            # very beginning
-            last_date = ga4_start_date
-
         try:
+            # Get the date up to which we have recorded pageviews data for this project
+            cursor.execute("""select pageviews_date from pageviews where project_title = %s
+                          order by pageviews_date desc limit 1""", (project_title,))
+            lst = cursor.fetchall()
+            if lst:
+                last_date = lst[0][0] + datetime.timedelta(days=1)
+            else:
+                # This means we have no data for this project, so start from the
+                # very beginning
+                last_date = ga4_start_date
+
             pageviews = pageviews_for_project(client, property_id, "pageviews",
                                           last_date, upper_limit_date)
             records = [(project_title, date_string, views) for date_string, views in pageviews]
@@ -65,7 +65,7 @@ def main():
             cursor.executemany(insert_query, records)
 
         except Exception as e:
-            print(f"!!! Error getting data for project: { project_title }")
+            print(f"!!! Error getting pageviews data for project: { project_title }; continuing")
             print(repr(e))
 
         cnx.commit()
@@ -73,70 +73,75 @@ def main():
     # Fetch data into the path_pageviews table.
     for project in projects:
         project_title, view_id, ga4_start_date = project
-        # Get the date up to which we have recorded pageviews data for this project
-        cursor.execute("""select pageviews_date from path_pageviews where project_title = %s
-                          order by pageviews_date desc limit 1""", (project_title,))
-        lst = cursor.fetchall()
-        if lst:
-            last_date = lst[0][0] + datetime.timedelta(days=1)
-        else:
-            # This means we have no data for this project, so start from the
-            # very beginning
-            last_date = ga4_start_date
+        try:
+            # Get the date up to which we have recorded pageviews data for this project
+            cursor.execute("""select pageviews_date from path_pageviews where project_title = %s
+                              order by pageviews_date desc limit 1""", (project_title,))
+            lst = cursor.fetchall()
+            if lst:
+                last_date = lst[0][0] + datetime.timedelta(days=1)
+            else:
+                # This means we have no data for this project, so start from the
+                # very beginning
+                last_date = ga4_start_date
 
-        # It seems that if we try to query-and-insert too many days' worth of
-        # pageviews data at a time, Google Analytics starts putting "(other)"
-        # entries. So we will define a partial_progress_chunk_size that
-        # specifies the maximum number of days' worth of data we will try to
-        # query-and-insert at once. This will also allow us to save partial
-        # progress. Of course, if last_date is very recent, this limit will
-        # have no effect. See
-        # https://support.google.com/analytics/answer/1009671?hl=en for more
-        # about "(other)".
-        partial_progress_chunk_size = 50
+            # It seems that if we try to query-and-insert too many days' worth of
+            # pageviews data at a time, Google Analytics starts putting "(other)"
+            # entries. So we will define a partial_progress_chunk_size that
+            # specifies the maximum number of days' worth of data we will try to
+            # query-and-insert at once. This will also allow us to save partial
+            # progress. Of course, if last_date is very recent, this limit will
+            # have no effect. See
+            # https://support.google.com/analytics/answer/1009671?hl=en for more
+            # about "(other)".
+            partial_progress_chunk_size = 50
 
-        lo = last_date
-        hi = min(lo + datetime.timedelta(days=partial_progress_chunk_size),
-                 upper_limit_date)
-
-        while True:
-            print("For %s (%s), querying and inserting from %s to %s (inclusive)" % (
-                        project_title, view_id, lo.strftime("%Y-%m-%d"),
-                        hi.strftime("%Y-%m-%d")), file=sys.stderr)
-            pageviews = pageviews_for_project(client, view_id,
-                                              "path_pageviews", lo, hi)
-            records_ = [(project_title, date_string, pagepath, views)
-                        for date_string, pagepath, views in pageviews]
-            records = []
-            for record in records_:
-                (project_title, date_string, pagepath, views) = record
-                # In order to be able to use pagepath as part of the "unique key"
-                # in MySQL, we need to limit its varchar length. But if we do that,
-                # sometimes there are pagepaths that are too long. These almost
-                # always have low pageviews and are accidental/joke paths, so not
-                # recording them in the database should cause no problems.
-                if len(pagepath) > 500:
-                    print("Too long pagepath: %s, %s, %s" % (project_title, date_string, pagepath),
-                          file=sys.stderr)
-                else:
-                    records.append(record)
-
-            insert_query = """insert into path_pageviews(
-                                  project_title,
-                                  pageviews_date,
-                                  pagepath,
-                                  pageviews
-                              ) values (%s, %s, %s, %s)"""
-            cursor.executemany(insert_query, records)
-            cnx.commit()
-
-            if hi == upper_limit_date:
-                break
-
-            lo = hi + datetime.timedelta(days=1)
+            lo = last_date
             hi = min(lo + datetime.timedelta(days=partial_progress_chunk_size),
                      upper_limit_date)
 
+            while True:
+                print("For %s (%s), querying and inserting from %s to %s (inclusive)" % (
+                            project_title, view_id, lo.strftime("%Y-%m-%d"),
+                            hi.strftime("%Y-%m-%d")), file=sys.stderr)
+                pageviews = pageviews_for_project(client, view_id,
+                                                  "path_pageviews", lo, hi)
+                records_ = [(project_title, date_string, pagepath, views)
+                            for date_string, pagepath, views in pageviews]
+                records = []
+                for record in records_:
+                    (project_title, date_string, pagepath, views) = record
+                    # In order to be able to use pagepath as part of the "unique key"
+                    # in MySQL, we need to limit its varchar length. But if we do that,
+                    # sometimes there are pagepaths that are too long. These almost
+                    # always have low pageviews and are accidental/joke paths, so not
+                    # recording them in the database should cause no problems.
+                    if len(pagepath) > 500:
+                        print("Too long pagepath: %s, %s, %s" % (project_title, date_string, pagepath),
+                              file=sys.stderr)
+                    else:
+                        records.append(record)
+
+                insert_query = """insert into path_pageviews(
+                                      project_title,
+                                      pageviews_date,
+                                      pagepath,
+                                      pageviews
+                                  ) values (%s, %s, %s, %s)"""
+                cursor.executemany(insert_query, records)
+                cnx.commit()
+                if hi == upper_limit_date:
+                    break
+
+                lo = hi + datetime.timedelta(days=1)
+                hi = min(lo + datetime.timedelta(days=partial_progress_chunk_size),
+                         upper_limit_date)
+
+        except Exception as e:
+            print(f"!!! Error getting path_pageviews data for project: { project_title }; continuing")
+            print(repr(e))
+
+        cnx.commit()
 
 def get_report(client, property_id, table, start_date, end_date, offset=0):
     """Queries the Google Analytics 4 Data API v1."""
