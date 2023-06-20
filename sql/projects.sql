@@ -25,10 +25,8 @@ insert into projects(project_title, url, view_id, start_date) values
     ,('Timelines wiki', 'https://timelines.issarice.com/', '142661718', '2017-03-01')
     ,('Calculus subwiki','https://calculus.subwiki.org/','50145310','2011-09-05')
     ,('Cellbio subwiki','https://cellbio.subwiki.org/','51788762','2011-10-20')
-    ,('Cognito Mentoring','https://cognitomentoring.org/','80278113','2013-12-21')
     ,('Commalg subwiki','https://commalg.subwiki.org/','11272366','2008-09-11')
     ,('Companal subwiki','https://companal.subwiki.org/','11272518','2008-09-11')
-    ,('Offene Grenzen','https://de.openborders.info/','88934216','2014-07-23')
     ,('Demography subwiki','https://demography.subwiki.org/','80270608','2014-01-26')
     ,('Devec subwiki','https://devec.subwiki.org/','162188096','2017-10-14')
     ,('Devec/Demography data portal','https://devec.vipulnaik.com/','185520433','2018-11-25')
@@ -40,9 +38,7 @@ insert into projects(project_title, url, view_id, start_date) values
     ,('Market subwiki','https://market.subwiki.org/','14469598','2009-01-27')
     ,('Mech subwiki','https://mech.subwiki.org/','14493100','2009-01-26')
     ,('Number subwiki','https://number.subwiki.org/','16064309','2009-03-18')
-    ,('Open Borders: The Case','https://openborders.info/','57510771','2012-03-16')
     ,('Topospaces subwiki','https://topospaces.subwiki.org/','11272244','2008-09-11')
-    ,('Vipul Naik','https://vipulnaik.com/','80266001','2013-12-18')
     ,('Wikipedia Views','https://wikipediaviews.org/','88649657','2014-07-16')
     ,('Content Creation Wiki', 'https://contentcreation.issarice.com/', '156584158', '2017-07-01')
     ,('Issa Rice', 'https://issarice.com/', '104557782', '2015-05-01')
@@ -50,9 +46,13 @@ insert into projects(project_title, url, view_id, start_date) values
 ;
 
 insert into projects(project_title, url, view_id, property_id, start_date, ga4_start_date) values
-    ('Contract work for Vipul Naik','https://contractwork.vipulnaik.com/','137051483','361187926','2017-01-02','2023-06-17')
+    ('Cognito Mentoring','https://cognitomentoring.org/','80278113','387480547','2013-12-21','2023-06-19')
+    ,('Contract work for Vipul Naik','https://contractwork.vipulnaik.com/','137051483','361187926','2017-01-02','2023-06-17')
     ,('BART','https://bart.vipulnaik.com/','151101984','368442001','2017-05-21','2023-06-17')
     ,('Org Watch', 'https://orgwatch.issarice.com/', '177871658', '315080229', '2018-06-17', '2022-05-14')
     ,('Computing data project', 'https://computingdata.vipulnaik.com/', '194324723', '371137700', '2019-04-28', '2023-06-17')
     ,('Diet Watch', 'https://dietwatch.vipulnaik.com/', '196583289', '386782128', '2019-06-08', '2023-06-17')
+    ,('Offene Grenzen','https://de.openborders.info/','88934216','387480228','2014-07-23','2023-06-19')
+    ,('Open Borders: The Case','https://openborders.info/','57510771','386272466','2012-03-16','2023-06-19')
+    ,('Vipul Naik','https://vipulnaik.com/','80266001','387480965','2013-12-18','2023-06-19')
 ;
