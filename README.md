@@ -123,13 +123,26 @@ mysql analyticstable < sql/pageviews.sql
 mysql analyticstable < sql/path_pageviews.sql
 ```
 
-### Create login file
+### Create login files for read-only and read-write users
 
-In this repo's directory, create a file called `login.py` with the database login info.
+In this repo's directory, create a file called `login.py` with the
+database login info for (ideally) a read-only user that is needed for
+web access.
+
 For example:
 
 ```python
-USER = "issa"
+USER = "analytics"
+DATABASE = "analyticstable"
+PASSWORD = ""
+```
+
+Also make a file called `login_rw.py` with the database login info for
+a read-write user that can be used to run the pageviews-fetching
+scripts.
+
+```python
+USER = "analytics_rw"
 DATABASE = "analyticstable"
 PASSWORD = ""
 ```
