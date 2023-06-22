@@ -40,7 +40,6 @@ insert into projects(project_title, url, view_id, start_date) values
     ,('Number subwiki','https://number.subwiki.org/','16064309','2009-03-18')
     ,('Topospaces subwiki','https://topospaces.subwiki.org/','11272244','2008-09-11')
     ,('Wikipedia Views','https://wikipediaviews.org/','88649657','2014-07-16')
-    ,('Content Creation Wiki', 'https://contentcreation.issarice.com/', '156584158', '2017-07-01')
     ,('Issa Rice', 'https://issarice.com/', '104557782', '2015-05-01')
     ,('Issawiki', 'https://wiki.issarice.com/', '218682322', '2020-05-15')
 ;
@@ -55,4 +54,5 @@ insert into projects(project_title, url, view_id, property_id, start_date, ga4_s
     ,('Offene Grenzen','https://de.openborders.info/','88934216','387480228','2014-07-23','2023-06-19')
     ,('Open Borders: The Case','https://openborders.info/','57510771','386272466','2012-03-16','2023-06-19')
     ,('Vipul Naik','https://vipulnaik.com/','80266001','387480965','2013-12-18','2023-06-19')
+    ,('Content Creation Wiki', 'https://contentcreation.issarice.com/', '156584158', '361374755', '2017-07-01', '2023-06-21')
 ;
