@@ -21,8 +21,8 @@ KEY_FILE_LOCATION = sys.argv[1]
 def main():
     analytics = initialize_analyticsreporting()
 
-    cnx = mysql.connector.connect(user=login.USER, database=login.DATABASE,
-                                  password=login.PASSWORD)
+    cnx = mysql.connector.connect(user=login_rw.USER, database=login_rw.DATABASE,
+                                  password=login_rw.PASSWORD)
     cursor = cnx.cursor()
 
     cursor.execute("""select project_title, view_id, start_date from projects where property_id is null""")

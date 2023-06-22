@@ -29,8 +29,8 @@ LIMIT = 10000
 def main():
     client = BetaAnalyticsDataClient.from_service_account_json(KEY_FILE_LOCATION)
 
-    cnx = mysql.connector.connect(user=login.USER, database=login.DATABASE,
-                                  password=login.PASSWORD)
+    cnx = mysql.connector.connect(user=login_rw.USER, database=login_rw.DATABASE,
+                                  password=login_rw.PASSWORD)
     cursor = cnx.cursor()
 
     cursor.execute("""select project_title, property_id, ga4_start_date from projects where property_id is not null""")
