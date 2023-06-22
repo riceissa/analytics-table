@@ -3,5 +3,6 @@ access-portal/jquery.min.js
 access-portal/jquery.tablesorter.js
 access-portal/tablesorter.css
 login.py
+login_rw.py
 access-portal/logs
 __pycache__/
