@@ -38,7 +38,6 @@ insert into projects(project_title, url, view_id, start_date) values
     ,('Number subwiki','https://number.subwiki.org/','16064309','2009-03-18')
     ,('Topospaces subwiki','https://topospaces.subwiki.org/','11272244','2008-09-11')
     ,('Wikipedia Views','https://wikipediaviews.org/','88649657','2014-07-16')
-    ,('Issa Rice', 'https://issarice.com/', '104557782', '2015-05-01')
     ,('Issawiki', 'https://wiki.issarice.com/', '218682322', '2020-05-15')
 ;
 
@@ -55,4 +54,5 @@ insert into projects(project_title, url, view_id, property_id, start_date, ga4_s
     ,('Content Creation Wiki', 'https://contentcreation.issarice.com/', '156584158', '361374755', '2017-07-01', '2023-06-21')
     ,('Cause Prioritization Wiki', 'https://causeprioritization.org/', '103832319', '386302009', '2014-11-01', '2023-06-21')
     ,('AI Watch','https://aiwatch.issarice.com/', '163268990', '365017328', '2017-10-01', '2023-06-23')
+    ,('Issa Rice', 'https://issarice.com/', '104557782', '387112675', '2015-05-01', '2023-06-23')
 ;
