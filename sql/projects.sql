@@ -20,8 +20,7 @@ create table projects(
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into projects(project_title, url, view_id, start_date) values
-    ('Timelines wiki', 'https://timelines.issarice.com/', '142661718', '2017-03-01')
-    ,('Calculus subwiki','https://calculus.subwiki.org/','50145310','2011-09-05')
+    ('Calculus subwiki','https://calculus.subwiki.org/','50145310','2011-09-05')
     ,('Cellbio subwiki','https://cellbio.subwiki.org/','51788762','2011-10-20')
     ,('Commalg subwiki','https://commalg.subwiki.org/','11272366','2008-09-11')
     ,('Companal subwiki','https://companal.subwiki.org/','11272518','2008-09-11')
@@ -55,4 +54,5 @@ insert into projects(project_title, url, view_id, property_id, start_date, ga4_s
     ,('AI Watch','https://aiwatch.issarice.com/', '163268990', '365017328', '2017-10-01', '2023-06-23')
     ,('Issa Rice', 'https://issarice.com/', '104557782', '387112675', '2015-05-01', '2023-06-23')
     ,('Issawiki', 'https://wiki.issarice.com/', '218682322', '364790606', '2020-05-15', '2023-06-23')
+    ,('Timelines wiki', 'https://timelines.issarice.com/', '142661718', '364967470', '2017-03-01', '2023-06-25')
 ;
