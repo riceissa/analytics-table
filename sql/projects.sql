@@ -21,17 +21,12 @@ create table projects(
 
 insert into projects(project_title, url, view_id, start_date) values
     ('Companal subwiki','https://companal.subwiki.org/','11272518','2008-09-11') /* Not yet switched as it's still on an old version of MediaWiki */
-    ,('Devec/Demography data portal','https://devec.vipulnaik.com/','185520433','2018-11-25')
-    ,('Cognito Mentoring Wiki','https://info.cognitomentoring.org/','83301583','2014-03-12')
-    ,('Learning subwiki','https://learning.subwiki.org/','80270607','2014-04-30')
-    ,('Market subwiki','https://market.subwiki.org/','14469598','2009-01-27')
-    ,('Mech subwiki','https://mech.subwiki.org/','14493100','2009-01-26')
-    ,('Number subwiki','https://number.subwiki.org/','16064309','2009-03-18')
-    ,('Topospaces subwiki','https://topospaces.subwiki.org/','11272244','2008-09-11')
-    ,('Wikipedia Views','https://wikipediaviews.org/','88649657','2014-07-16')
-;
+    ,('Cognito Mentoring Wiki','https://info.cognitomentoring.org/','83301583','2014-03-12') /* Not yet switched as it's still on an old version of MediaWiki */
+    ,('Number subwiki','https://number.subwiki.org/','16064309','2009-03-18') /* Not yet switched as it's still on an old version of MediaWiki */
+; /* currently missing entries: complexity, galois, graph, linear, machinelearning, noncommutative, ref subwiki */
 
 insert into projects(project_title, url, view_id, property_id, start_date, ga4_start_date) values
+    /* Vipul's sites */
     ('BART','https://bart.vipulnaik.com/','151101984','368442001','2017-05-21','2023-06-17')
     ,('Calculus subwiki','https://calculus.subwiki.org/','50145310','385104016','2011-09-05','2023-07-02')
     ,('Cellbio subwiki','https://cellbio.subwiki.org/','51788762','394279673','2011-10-20','2023-07-02')
@@ -39,18 +34,25 @@ insert into projects(project_title, url, view_id, property_id, start_date, ga4_s
     ,('Commalg subwiki','https://commalg.subwiki.org/','11272366','384945529','2008-09-11','2023-07-02')
     ,('Contract work for Vipul Naik','https://contractwork.vipulnaik.com/','137051483','361187926','2017-01-02','2023-06-17')
     ,('Demography subwiki','https://demography.subwiki.org/','80270608','391692155','2014-01-26','2023-07-02')
+    ,('Devec/Demography data portal','https://devec.vipulnaik.com/','185520433','372907146','2018-11-25','2023-07-02')
     ,('Devec subwiki','https://devec.subwiki.org/','162188096','385039983','2017-10-14','2023-07-02')
     ,('Diffgeom subwiki','https://diffgeom.subwiki.org/','11272486','392397224','2008-09-11','2023-07-02')
     ,('Donations list website','https://donations.vipulnaik.com/','137613209','365946471','2017-01-09','2023-07-02')
-    ,('Org Watch', 'https://orgwatch.issarice.com/', '177871658', '315080229', '2018-06-17', '2022-05-14')
     ,('Computing data project', 'https://computingdata.vipulnaik.com/', '194324723', '371137700', '2019-04-28', '2023-06-17')
     ,('Diet Watch', 'https://dietwatch.vipulnaik.com/', '196583289', '386782128', '2019-06-08', '2023-06-17')
     ,('Groupprops subwiki','https://groupprops.subwiki.org/','8783374','384791175','2008-05-10','2023-07-02')
+    ,('Learning subwiki','https://learning.subwiki.org/','80270607','391771379','2014-04-30','2023-07-02')
+    ,('Market subwiki','https://market.subwiki.org/','14469598','385616227','2009-01-27','2023-07-02')
+    ,('Mech subwiki','https://mech.subwiki.org/','14493100','392273062','2009-01-26','2023-07-02')
     ,('Offene Grenzen','https://de.openborders.info/','88934216','387480228','2014-07-23','2023-06-19')
     ,('Open Borders: The Case','https://openborders.info/','57510771','386272466','2012-03-16','2023-06-19')
+    ,('Topospaces subwiki','https://topospaces.subwiki.org/','11272244','384982525','2008-09-11','2023-07-02')
     ,('Vipul Naik','https://vipulnaik.com/','80266001','387480965','2013-12-18','2023-06-19')
+    ,('Wikipedia Views','https://wikipediaviews.org/','88649657','386493527','2014-07-16','2023-07-02')
+    /* Issa's sites */
     ,('Content Creation Wiki', 'https://contentcreation.issarice.com/', '156584158', '361374755', '2017-07-01', '2023-06-21')
     ,('Cause Prioritization Wiki', 'https://causeprioritization.org/', '103832319', '386302009', '2014-11-01', '2023-06-21')
+    ,('Org Watch', 'https://orgwatch.issarice.com/', '177871658', '315080229', '2018-06-17', '2022-05-14')
     ,('AI Watch','https://aiwatch.issarice.com/', '163268990', '365017328', '2017-10-01', '2023-06-23')
     ,('Issa Rice', 'https://issarice.com/', '104557782', '387112675', '2015-05-01', '2023-06-23')
     ,('Issawiki', 'https://wiki.issarice.com/', '218682322', '364790606', '2020-05-15', '2023-06-23')
