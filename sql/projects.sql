@@ -6,7 +6,7 @@ create table projects(
     url varchar(200) not null,
 
     # The Google Analytics ViewID for this site.
-    view_id varchar(50) not null,
+    view_id varchar(50),
 
     # The Google Analytics 4 property ID for this site.
     property_id varchar(50),
