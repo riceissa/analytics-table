@@ -22,7 +22,6 @@ create table projects(
 insert into projects(project_title, url, view_id, start_date) values
     ('Companal subwiki','https://companal.subwiki.org/','11272518','2008-09-11') /* Not yet switched as it's still on an old version of MediaWiki */
     ,('Cognito Mentoring Wiki','https://info.cognitomentoring.org/','83301583','2014-03-12') /* Not yet switched as it's still on an old version of MediaWiki */
-    ,('Number subwiki','https://number.subwiki.org/','16064309','2009-03-18') /* Not yet switched as it's still on an old version of MediaWiki */
 ; /* currently missing entries: complexity, galois, graph, linear, machinelearning, noncommutative, ref subwiki */
 
 insert into projects(project_title, url, view_id, property_id, start_date, ga4_start_date) values
@@ -45,6 +44,7 @@ insert into projects(project_title, url, view_id, property_id, start_date, ga4_s
     ,('Machinelearning subwiki','https://machinelearning.subwiki.org/',NULL,'439747074','2024-05-05','2024-05-05')
     ,('Market subwiki','https://market.subwiki.org/','14469598','385616227','2009-01-27','2023-07-02')
     ,('Mech subwiki','https://mech.subwiki.org/','14493100','392273062','2009-01-26','2023-07-02')
+    ,('Number subwiki','https://number.subwiki.org/','16064309','391632665','2009-03-18','2024-07-14')
     ,('Offene Grenzen','https://de.openborders.info/','88934216','387480228','2014-07-23','2023-06-19')
     ,('Open Borders: The Case','https://openborders.info/','57510771','386272466','2012-03-16','2023-06-19')
     ,('Topospaces subwiki','https://topospaces.subwiki.org/','11272244','384982525','2008-09-11','2023-07-02')
