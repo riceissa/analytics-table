@@ -28,6 +28,7 @@ insert into projects(project_title, url, view_id, property_id, start_date, ga4_s
     /* Vipul's sites */
     ('BART','https://bart.vipulnaik.com/','151101984','368442001','2017-05-21','2023-06-17')
     ,('Calculus subwiki','https://calculus.subwiki.org/','50145310','385104016','2011-09-05','2023-07-02')
+    ,('Cattheory subwiki','https://cattheory.subwiki.org/',NULL,'393073515',NULL,'2024-07-20')
     ,('Cellbio subwiki','https://cellbio.subwiki.org/','51788762','394279673','2011-10-20','2023-07-02')
     ,('Cognito Mentoring','https://cognitomentoring.org/','80278113','387480547','2013-12-21','2023-06-19')
     ,('Commalg subwiki','https://commalg.subwiki.org/','11272366','384945529','2008-09-11','2023-07-02')
