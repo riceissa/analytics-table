@@ -29,8 +29,14 @@ Live at https://analytics.vipulnaik.com/
 
 ## Project layout
 
-- `fetch_pageviews.py`: this script queries Google Analytics using its API, and
-  stores the data in a local database. This script should be run in a cron job.
+- `fetch_pageviews_ga4.py`: this script queries Google Analytics (GA
+  4) using its API, and stores the data in a local database. This
+  script should be run in a cron job. We used to have
+  `fetch_pageviews.py` that did the equivalent thing with Universal
+  Analytics (UA) but Google no longer supports UA and has deleted all
+  historical UA data starting July 2024, so we've removed that script
+  in [this
+  commit](https://github.com/riceissa/analytics-table/commit/2f4a6ed88c6d3178cd10706de4816eb72687bae1).
 - `print_table.py`: this script queries the local database and prints pageviews
   data in an HTML table.
 - `sql/`: table schema and some data for the local database.
@@ -46,7 +52,7 @@ The database has two tables:
 - `projects`: this stores some metadata about each project. The data for this
   is stored directly in the SQL file.
 - `pageviews`: this stores the pageviews. The data for this is inserted by
-  `fetch_pageviews.py`.
+  `fetch_pageviews_ga4.py`.
 
 ## Setting up Google Analytics (Universal Analytics aka pre-2023)
 
@@ -163,19 +169,26 @@ If everything is set up correctly, you should now be able to run the data
 fetching script:
 
 ```bash
-./fetch_pageviews.py key.json
+./fetch_pageviews_ga4.py key.json
 ```
 
 If it works, try running it again:
 
 ```bash
-./fetch_pageviews.py key.json
+./fetch_pageviews_ga4.py key.json
 ```
 
 The script checks the most recently stored date for each project, and only
 queries for more recent data, so the second run should be much quicker. (If a
 website got zero pageviews on the most recent days, it might try to query a
 small number of dates.)
+
+NOTE: Data from before the project was switched to GA 4 is only
+available by restoring from a backup; it cannot be obtained from the
+Google Analytics API any more. So, you won't be able to reconstruct
+the data as currently seen on analytics.vipulnaik.com. However, data
+July 2023 onward should use GA 4 so data from that point onward should
+be reconstructible.
 
 ### Fetch auxiliary files
 
