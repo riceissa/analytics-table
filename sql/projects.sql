@@ -21,7 +21,7 @@ create table projects(
 
 insert into projects(project_title, url, view_id, start_date) values
     ('Cognito Mentoring Wiki','https://info.cognitomentoring.org/','83301583','2014-03-12') /* Not yet switched as it's still on an old version of MediaWiki */
-; /* currently missing entries: complexity, galois, graph, linear, machinelearning, noncommutative, ref subwiki */
+;
 
 insert into projects(project_title, url, view_id, property_id, start_date, ga4_start_date) values
     /* Vipul's sites */
@@ -52,6 +52,7 @@ insert into projects(project_title, url, view_id, property_id, start_date, ga4_s
     ,('Number subwiki','https://number.subwiki.org/','16064309','391632665','2009-03-18','2024-07-14')
     ,('Offene Grenzen','https://de.openborders.info/','88934216','387480228','2014-07-23','2023-06-19')
     ,('Open Borders: The Case','https://openborders.info/','57510771','386272466','2012-03-16','2023-06-19')
+    ,('Ref subwiki','https://subwiki.org/',NULL,'393736079',NULL,'2024-07-21')
     ,('Topospaces subwiki','https://topospaces.subwiki.org/','11272244','384982525','2008-09-11','2023-07-02')
     ,('Vipul Naik','https://vipulnaik.com/','80266001','387480965','2013-12-18','2023-06-19')
     ,('Wikipedia Views','https://wikipediaviews.org/','88649657','386493527','2014-07-16','2023-07-02')
