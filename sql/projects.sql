@@ -42,6 +42,7 @@ insert into projects(project_title, url, view_id, property_id, start_date, ga4_s
     ,('Computing data project', 'https://computingdata.vipulnaik.com/', '194324723', '371137700', '2019-04-28', '2023-06-17')
     ,('Diet Watch', 'https://dietwatch.vipulnaik.com/', '196583289', '386782128', '2019-06-08', '2023-06-17')
     ,('Galois subwiki','https://galois.subwiki.org/',NULL,'450938590',NULL,'2024-07-19')
+    ,('Graph subwiki','https://graph.subwiki.org/',NULL,'450946699',NULL,'2024-07-20')
     ,('Groupprops subwiki','https://groupprops.subwiki.org/','8783374','384791175','2008-05-10','2023-07-02')
     ,('Learning subwiki','https://learning.subwiki.org/','80270607','391771379','2014-04-30','2023-07-02')
     ,('Linear subwiki','https://linear.subwiki.org/',NULL,'450893649',NULL,'2024-07-19')
