@@ -19,10 +19,6 @@ create table projects(
 
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-insert into projects(project_title, url, view_id, start_date) values
-    ('Cognito Mentoring Wiki','https://info.cognitomentoring.org/','83301583','2014-03-12') /* Not yet switched as it's still on an old version of MediaWiki */
-;
-
 insert into projects(project_title, url, view_id, property_id, start_date, ga4_start_date) values
     /* Vipul's sites */
     ('BART','https://bart.vipulnaik.com/','151101984','368442001','2017-05-21','2023-06-17')
@@ -31,6 +27,7 @@ insert into projects(project_title, url, view_id, property_id, start_date, ga4_s
     ,('Cellbio subwiki','https://cellbio.subwiki.org/','51788762','394279673','2011-10-20','2023-07-02')
     ,('Companal subwiki','https://companal.subwiki.org/','11272518','394276112','2008-09-11','2024-07-21')
     ,('Cognito Mentoring','https://cognitomentoring.org/','80278113','387480547','2013-12-21','2023-06-19')
+    ,('Cognito Mentoring Wiki','https://info.cognitomentoring.org/','83301583','393284435','2014-03-12','2024-07-21')
     ,('Commalg subwiki','https://commalg.subwiki.org/','11272366','384945529','2008-09-11','2023-07-02')
     ,('Complexity subwiki','https://complexity.subwiki.org/',NULL,'450913740',NULL,'2024-07-19')
     ,('Contract work for Vipul Naik','https://contractwork.vipulnaik.com/','137051483','361187926','2017-01-02','2023-06-17')
