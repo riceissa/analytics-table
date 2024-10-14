@@ -17,7 +17,7 @@ create table projects(
     # The date when Google Analytics 4 was added for this site.
     ga4_start_date date
 
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 insert into projects(project_title, url, view_id, property_id, start_date, ga4_start_date) values
     /* Vipul's sites */
