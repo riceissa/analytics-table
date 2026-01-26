@@ -110,7 +110,7 @@ def print_table(projects, pageviews_data, total_pageviews):
         data = {(year, month): views for title, views, year, month in pageviews_data
                 if title == project_title}
         print("<tr>")
-        if project_title == 'Groupprops subwiki':
+        if project_title == 'Groupprops subwiki' or project_title == 'Issawiki':
             print('''<td>%s</td>''' % (project_title))
         else:
             print('''<td><a href="%s" rel="nofollow">%s</a></td>''' % ('''/top-pages.php?project_title=%s''' % urllib.parse.quote(project_title),
