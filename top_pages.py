@@ -31,7 +31,7 @@ def main():
 
     project_title = sys.argv[1]
     if project_title == "Groupprops subwiki" or project_title == "Issawiki":
-        print "<p>Sorry, top pages is not supported for this site!</p>"
+        print("<p>Sorry, top pages is not supported for this site!</p>")
         return
     if not project_title:
         project_title = "Vipul Naik"
